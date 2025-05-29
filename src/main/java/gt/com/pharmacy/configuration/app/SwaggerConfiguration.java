@@ -13,18 +13,18 @@ import org.springframework.http.HttpHeaders;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "BACKEND API RESTFul Mega Tech",
-                description = "This application is a RESTFul API to be able to consume all the services available in Mega Tech.",
-                termsOfService = "www.mega-tech-academy.com.gt/terms-and-conditions",
+                title = "BACKEND API RESTFul Pharmacy",
+                description = "This application is a RESTFul API to be able to consume all the services available in Pharmacy.",
+                termsOfService = "www.pharmacy.com.gt/terms-and-conditions",
                 version = "1.0.0",
                 contact = @Contact(
-                        name = "Mega Tech",
-                        url = "https://www.mega-tech-academy.com.gt",
-                        email = "customer-service@mega-tech-academy.com"
+                        name = "Pharmacy",
+                        url = "http://localhost:8080",
+                        email = "customer-service@pharmacy.com"
                 ),
                 license = @License(
-                        name = "Standard Software Use License for mega-tech-academy",
-                        url = "www.mega-tech-academy.com.gt/licence"
+                        name = "Standard Software Use License for pharmacy",
+                        url = "www.pharmacy.com.gt/licence"
                 )
         ),
         servers = {
@@ -38,7 +38,7 @@ import org.springframework.http.HttpHeaders;
                 ),
                 @Server(
                         description = "PRODUCTION SERVER",
-                        url = "https://backendmegatech-production.up.railway.app"
+                        url = "http://localhost:8080"
                 )
         },
         security = @SecurityRequirement(
