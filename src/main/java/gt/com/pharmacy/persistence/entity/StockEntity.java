@@ -1,8 +1,6 @@
 package gt.com.pharmacy.persistence.entity;
 
-import gt.com.pharmacy.persistence.entity.enums.MovementTypeEnum;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -38,7 +36,8 @@ public class StockEntity {
     @OneToOne
     @JoinColumn(
             name = "presentation_id",
-            nullable = false
+            nullable = false,
+            unique = true
     )
     private PresentationEntity presentation;
 }

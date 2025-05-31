@@ -2,10 +2,7 @@ package gt.com.pharmacy.persistence.entity;
 
 import gt.com.pharmacy.persistence.entity.enums.MovementTypeEnum;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -47,7 +44,10 @@ public class InventoryMovementEntity {
     private MovementTypeEnum type;
 
     @NotNull(
-            message = "Date cannot be null."
+            message = "Movement date cannot be null."
+    )
+    @PastOrPresent(
+            message = "Movement date must be in past or present"
     )
     @Column(
             name = "movement_date"

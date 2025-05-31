@@ -34,12 +34,12 @@ public class CustomerEntity {
     private Long id;
 
     @NotBlank
-            (message = "First name cannot be blank."
+            (message = "Full name cannot be blank."
             )
     @Size(
             min = 2,
             max = 75,
-            message = "First name must be between 2-50 characters."
+            message = "Full name must be between 2-50 characters."
     )
     @Column(
             name = "full_name",
