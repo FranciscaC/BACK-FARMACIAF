@@ -33,7 +33,7 @@ public class UserEntity {
     private Long id;
 
     @NotBlank(
-            message = "Username cannot be empty"
+            message = "Username cannot be empty."
     )
     @Size(
             min = 5,
@@ -48,12 +48,12 @@ public class UserEntity {
     private String username;
 
     @NotBlank(
-            message = "Password cannot be empty"
+            message = "Password cannot be empty."
     )
     @Size(
             min = 8,
             max = 64,
-            message = "Password must be between 8 and 64 characters long"
+            message = "Password must be between 8 and 64 characters long."
     )
     @Column(
             nullable = false
@@ -89,11 +89,16 @@ public class UserEntity {
     private boolean isCredentialsNonExpired = true;
 
     @NotEmpty(
-            message = "The user must have at least one role"
+            message = "The user must have at least one role."
     )
     @ManyToMany(
             fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH
+            }
     )
     @JoinTable(
             name = "user_roles",

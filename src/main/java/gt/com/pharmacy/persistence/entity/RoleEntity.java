@@ -46,7 +46,12 @@ public class RoleEntity {
     )
     @ManyToMany(
             fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH
+            }
     )
     @JoinTable(
             name = "role_permissions",
