@@ -18,52 +18,23 @@ import java.util.List;
 public class PresentationEntity {
 
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "presentation_seq"
-    )
-    @SequenceGenerator(
-            name = "presentation_seq",
-            sequenceName = "presentation_sequence",
-            allocationSize = 1
-    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "presentation_seq")
+    @SequenceGenerator(name = "presentation_seq", sequenceName = "presentation_sequence", allocationSize = 1)
     private Long id;
 
-    @NotBlank(
-            message = "Description cannot be blank."
-    )
-    @Size(
-            min = 5,
-            max = 255,
-            message = "Description must between 5 and 255 characters."
-    )
-    @Column(
-            name = "description",
-            nullable = false
-    )
+    @NotBlank(message = "Description cannot be blank.")
+    @Size(min = 5, max = 255, message = "Description must between 5 and 255 characters.")
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @ManyToOne(
-            fetch = FetchType.LAZY
-    )
-    @JoinColumn(
-            name = "product_id",
-            nullable = false
-    )
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
 
-    @OneToOne(
-            mappedBy = "presentation",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToOne(mappedBy = "presentation", cascade = CascadeType.ALL, orphanRemoval = true)
     private PriceEntity price;
 
-    @OneToMany(
-            mappedBy = "presentation",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToMany(mappedBy = "presentation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InventoryMovementEntity> movements = new ArrayList<>();
 
     @Transient
