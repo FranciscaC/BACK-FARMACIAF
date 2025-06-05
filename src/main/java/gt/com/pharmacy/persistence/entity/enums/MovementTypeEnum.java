@@ -4,5 +4,5 @@ public enum MovementTypeEnum {
     INPUT,
     OUTPUT,
     ADJUSTMENT,
-    ENTRADA, DEVOLUCION, SALIDA, AJUSTE, RETURN
+    RETURN
 }

@@ -10,26 +10,11 @@ import static org.springframework.http.HttpMethod.*;
 @Configuration
 public class CorsConfiguration implements WebMvcConfigurer {
     @Override
-    public void addCorsMappings(
-            CorsRegistry corsRegistry
-    ) {
+    public void addCorsMappings(CorsRegistry corsRegistry) {
         corsRegistry
-                .addMapping(
-                        "/**"
-                )
-                .allowedOrigins(
-                        "*"
-                )
-                .allowedMethods(
-                        GET.name(),
-                        POST.name(),
-                        PUT.name(),
-                        PATCH.name(),
-                        DELETE.name()
-                )
-                .allowedHeaders(
-                        CONTENT_TYPE,
-                        AUTHORIZATION
-                );
+                .addMapping("/**")
+                .allowedOrigins("*")
+                .allowedMethods(GET.name(), POST.name(), PUT.name(), PATCH.name(), DELETE.name())
+                .allowedHeaders(CONTENT_TYPE, AUTHORIZATION);
     }
 }

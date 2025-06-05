@@ -17,33 +17,15 @@ import org.springframework.http.HttpHeaders;
                 description = "This application is a RESTFul API to be able to consume all the services available in Pharmacy.",
                 termsOfService = "www.pharmacy.com.gt/terms-and-conditions",
                 version = "1.0.0",
-                contact = @Contact(
-                        name = "Pharmacy",
-                        url = "http://localhost:8080",
-                        email = "customer-service@pharmacy.com"
-                ),
-                license = @License(
-                        name = "Standard Software Use License for pharmacy",
-                        url = "www.pharmacy.com.gt/licence"
-                )
+                contact = @Contact(name = "Pharmacy", url = "http://localhost:8080", email = "customer-service@pharmacy.com"),
+                license = @License(name = "Standard Software Use License for pharmacy", url = "www.pharmacy.com.gt/licence")
         ),
         servers = {
-                @Server(
-                        description = "DEVELOPMENT SERVER",
-                        url = "http://localhost:8081"
-                ),
-                @Server(
-                        description = "TESTING SERVER",
-                        url = "http://localhost:8082"
-                ),
-                @Server(
-                        description = "PRODUCTION SERVER",
-                        url = "http://localhost:8080"
-                )
+                @Server(description = "DEVELOPMENT SERVER", url = "http://localhost:8081"),
+                @Server(description = "TESTING SERVER", url = "http://localhost:8082"),
+                @Server(description = "PRODUCTION SERVER", url = "http://localhost:8080")
         },
-        security = @SecurityRequirement(
-                name = "Security Token"
-        )
+        security = @SecurityRequirement(name = "Security Token")
 )
 @SecurityScheme(
         name = "Security Token",

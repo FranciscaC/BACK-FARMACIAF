@@ -23,9 +23,7 @@ public class JwtUtils {
     @Value("${security.jwt.secret.user}")
     private String secretUser;
 
-    public String createToken(
-            Authentication authentication
-    ) {
+    public String createToken(Authentication authentication) {
         Algorithm algorithm = Algorithm.HMAC256(this.secretKey);
         String username = authentication.getPrincipal().toString();
         String authorities = authentication
@@ -45,9 +43,7 @@ public class JwtUtils {
                 .sign(algorithm);
     }
 
-    public DecodedJWT validatedToken(
-            String token
-    ) {
+    public DecodedJWT validatedToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(this.secretKey);
             JWTVerifier jwtVerifier = JWT
@@ -60,16 +56,11 @@ public class JwtUtils {
         }
     }
 
-    public String extractUsername(
-            DecodedJWT decodedJWT
-    ) {
+    public String extractUsername(DecodedJWT decodedJWT) {
         return decodedJWT.getSubject();
     }
 
-    public Claim getSpecificClaim(
-            DecodedJWT decodedJWT,
-            String claimName
-    ) {
+    public Claim getSpecificClaim(DecodedJWT decodedJWT, String claimName) {
         return decodedJWT.getClaim(claimName);
     }
 }

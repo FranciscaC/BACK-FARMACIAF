@@ -25,41 +25,21 @@ public class BackendPharmacyApplication {
     CommandLineRunner init(IUserRepository iUserRepository) {
         return args -> {
             // Creating permissions
-            PermissionEntity readPermission = PermissionEntity
-                    .builder()
-                    .name("READ")
-                    .build();
-            PermissionEntity createPermission = PermissionEntity
-                    .builder()
-                    .name("CREATE")
-                    .build();
-            PermissionEntity updatePermission = PermissionEntity
-                    .builder()
-                    .name("UPDATE")
-                    .build();
-            PermissionEntity deletePermission = PermissionEntity
-                    .builder()
-                    .name("DELETE")
-                    .build();
+            PermissionEntity readPermission = PermissionEntity.builder().name("READ").build();
+            PermissionEntity createPermission = PermissionEntity.builder().name("CREATE").build();
+            PermissionEntity updatePermission = PermissionEntity.builder().name("UPDATE").build();
+            PermissionEntity deletePermission = PermissionEntity.builder().name("DELETE").build();
 
             // Creating roles
             RoleEntity roleAdmin = RoleEntity
                     .builder()
                     .roleEnum(RoleEnum.ADMIN)
-                    .permissionList(Set.of(
-                            readPermission,
-                            createPermission,
-                            updatePermission,
-                            deletePermission))
+                    .permissionList(Set.of(readPermission, createPermission, updatePermission, deletePermission))
                     .build();
             RoleEntity roleUser = RoleEntity
                     .builder()
                     .roleEnum(RoleEnum.USER)
-                    .permissionList(Set.of(
-                            readPermission,
-                            createPermission,
-                            updatePermission,
-                            deletePermission))
+                    .permissionList(Set.of(readPermission, createPermission, updatePermission, deletePermission))
                     .build();
 
             // Creating users

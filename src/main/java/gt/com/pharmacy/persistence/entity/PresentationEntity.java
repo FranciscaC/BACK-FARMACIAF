@@ -40,13 +40,10 @@ public class PresentationEntity {
     @Transient
     public Integer getCurrentStock() {
         if (movements == null || movements.isEmpty()) return 0;
-
         return movements.stream()
                 .mapToInt(m -> switch (m.getType()) {
-                    case ENTRADA, DEVOLUCION -> m.getQuantity();
-                    case SALIDA, AJUSTE -> -m.getQuantity();
-                    default -> 0;
-                })
-                .sum();
+                    case INPUT, RETURN -> m.getQuantity();
+                    case OUTPUT, ADJUSTMENT -> -m.getQuantity();
+                }).sum();
     }
 }
