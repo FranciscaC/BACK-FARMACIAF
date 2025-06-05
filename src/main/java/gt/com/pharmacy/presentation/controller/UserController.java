@@ -14,76 +14,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(
-        "/api/user"
-)
+@RequestMapping("/api/user")
 @RequiredArgsConstructor
-@PreAuthorize(
-        "denyAll()"
-)
+@PreAuthorize("denyAll()")
 public class UserController {
 
     private final UserDetailServiceImplementation userDetailServiceImplementation;
 
-    @PreAuthorize(
-            "hasAuthority('READ')"
-    )
+    @PreAuthorize("hasAuthority('READ')")
     @GetMapping
     public ResponseEntity<List<UserEntity>> findAllUsers() {
-        return new ResponseEntity<>(
-                this.userDetailServiceImplementation.findAllUsers(),
-                HttpStatus.OK
-        );
+        return new ResponseEntity<>(this.userDetailServiceImplementation.findAllUsers(), HttpStatus.OK);
     }
 
-    @PreAuthorize(
-            "hasAuthority('CREATE')"
-    )
+    @PreAuthorize("hasAuthority('CREATE')")
     @PostMapping
-    public ResponseEntity<AuthResponseDTO> register(
-            @RequestBody @Valid AuthCreateUserRequestDTO authCreateUserRequestDTO
-    ) {
-        return new ResponseEntity<>(
-                this.userDetailServiceImplementation.createUser(
-                        authCreateUserRequestDTO
-                ),
-                HttpStatus.CREATED
-        );
+    public ResponseEntity<AuthResponseDTO> register(@RequestBody @Valid AuthCreateUserRequestDTO authCreateUserRequestDTO) {
+        return new ResponseEntity<>(this.userDetailServiceImplementation.createUser(authCreateUserRequestDTO), HttpStatus.CREATED);
     }
 
-    @PreAuthorize(
-            "hasAuthority('UPDATE')"
-    )
-    @PutMapping(
-            "/{username}"
-    )
-    public ResponseEntity<AuthResponseDTO> updateUser(
-            @PathVariable String username,
-            @RequestBody @Valid AuthCreateUserRequestDTO authCreateUserRequestDTO
-    ) {
-        return new ResponseEntity<>(
-                this.userDetailServiceImplementation.updateUser(
-                        username,
-                        authCreateUserRequestDTO
-                ),
-                HttpStatus.OK
-        );
+    @PreAuthorize("hasAuthority('UPDATE')")
+    @PutMapping("/{username}")
+    public ResponseEntity<AuthResponseDTO> updateUser(@PathVariable String username, @RequestBody @Valid AuthCreateUserRequestDTO authCreateUserRequestDTO) {
+        return new ResponseEntity<>(this.userDetailServiceImplementation.updateUser(username, authCreateUserRequestDTO), HttpStatus.OK);
     }
 
-    @PreAuthorize(
-            "hasAuthority('DELETE')"
-    )
-    @DeleteMapping(
-            "/{username}"
-    )
-    public ResponseEntity<Void> deleteUser(
-            @PathVariable String username
-    ) {
-        this.userDetailServiceImplementation.deleteUser(
-                username
-        );
-        return new ResponseEntity<>(
-                HttpStatus.NO_CONTENT
-        );
+    @PreAuthorize("hasAuthority('DELETE')")
+    @DeleteMapping("/{username}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String username) {
+        this.userDetailServiceImplementation.deleteUser(username);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -12,44 +12,22 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping(
-        "/authentication"
-)
-@PreAuthorize(
-        "permitAll()"
-)
+@RequestMapping("/authentication")
+@PreAuthorize("permitAll()")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
     private final UserDetailServiceImplementation userDetailServiceImplementation;
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDTO> login(
-            @RequestBody @Valid AuthLoginRequestDTO authLoginRequestDTO
-    ) {
-        return new ResponseEntity<>(
-                this.userDetailServiceImplementation.loginUser(
-                        authLoginRequestDTO
-                ),
-                HttpStatus.OK
-        );
+    public ResponseEntity<AuthResponseDTO> login(@RequestBody @Valid AuthLoginRequestDTO authLoginRequestDTO) {
+        return new ResponseEntity<>(this.userDetailServiceImplementation.loginUser(authLoginRequestDTO), HttpStatus.OK);
     }
 
-    @PreAuthorize(
-            "hasAnyRole('ADMIN', 'USER')"
-    )
-    @GetMapping(
-            "/me"
-    )
-    public ResponseEntity<UserProfileResponseDTO> getUserProfile(
-            @RequestHeader("Authorization") String token
-    ) {
-        UserProfileResponseDTO userProfile = userDetailServiceImplementation.getUserProfileFromToken(
-                token
-        );
-        return new ResponseEntity<>(
-                userProfile,
-                HttpStatus.OK
-        );
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @GetMapping("/me")
+    public ResponseEntity<UserProfileResponseDTO> getUserProfile(@RequestHeader("Authorization") String token) {
+        UserProfileResponseDTO userProfile = userDetailServiceImplementation.getUserProfileFromToken(token);
+        return new ResponseEntity<>(userProfile, HttpStatus.OK);
     }
 }

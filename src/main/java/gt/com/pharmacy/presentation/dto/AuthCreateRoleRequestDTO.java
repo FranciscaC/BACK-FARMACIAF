@@ -6,7 +6,5 @@ import org.springframework.validation.annotation.Validated;
 import java.util.List;
 
 @Validated
-public record AuthCreateRoleRequestDTO(
-        @Size(max = 3) List<String> roleListName
-) {
+public record AuthCreateRoleRequestDTO(@Size(max = 3) List<String> roleListName) {
 }

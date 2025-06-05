@@ -29,6 +29,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -134,11 +135,11 @@ public class UserDetailServiceImplementation implements UserDetailsService {
         );
     }
 
+    @Transactional
     public void deleteUser(String username) {
         UserEntity existingUser = iUserRepository.findUserEntityByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("The user " + username + " does not exist"));
-        existingUser.getRoles().clear();
-        iUserRepository.save(existingUser);
+        existingUser.getRoles().forEach(roleEntity -> roleEntity.getUsers().remove(existingUser));
         iUserRepository.delete(existingUser);
     }
 
