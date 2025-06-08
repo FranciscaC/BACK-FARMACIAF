@@ -1,4 +1,4 @@
-package gt.com.pharmacy.presentation.dto;
+package gt.com.pharmacy.persistence.dto;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 

@@ -7,14 +7,14 @@ import java.util.Set;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import gt.com.pharmacy.persistence.entity.enums.RoleEnum;
-import gt.com.pharmacy.presentation.dto.AuthCreateUserRequestDTO;
-import gt.com.pharmacy.presentation.dto.AuthLoginRequestDTO;
-import gt.com.pharmacy.presentation.dto.AuthResponseDTO;
+import gt.com.pharmacy.persistence.dto.AuthCreateUserRequestDTO;
+import gt.com.pharmacy.persistence.dto.AuthLoginRequestDTO;
+import gt.com.pharmacy.persistence.dto.AuthResponseDTO;
 import gt.com.pharmacy.persistence.entity.RoleEntity;
 import gt.com.pharmacy.persistence.entity.UserEntity;
 import gt.com.pharmacy.persistence.repository.IRoleRepository;
 import gt.com.pharmacy.persistence.repository.IUserRepository;
-import gt.com.pharmacy.presentation.dto.UserProfileResponseDTO;
+import gt.com.pharmacy.persistence.dto.UserProfileResponseDTO;
 import gt.com.pharmacy.util.constant.SecurityConstant;
 import gt.com.pharmacy.util.jwt.JwtUtils;
 import lombok.RequiredArgsConstructor;

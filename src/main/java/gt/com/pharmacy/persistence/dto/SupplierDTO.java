@@ -1,9 +1,7 @@
-package gt.com.pharmacy.presentation.dto;
+package gt.com.pharmacy.persistence.dto;
 
-import gt.com.pharmacy.persistence.entity.InventoryMovementEntity;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -25,5 +23,5 @@ public class SupplierDTO {
 
     private Boolean isActive;
 
-    private List<InventoryMovementEntity> inputs = new ArrayList<>();
+    private List<InventoryMovementDTO> inputs;
 }

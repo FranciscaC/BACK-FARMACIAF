@@ -1,4 +1,4 @@
-package gt.com.pharmacy.presentation.dto;
+package gt.com.pharmacy.persistence.dto;
 
 import jakarta.validation.constraints.Size;
 import org.springframework.validation.annotation.Validated;

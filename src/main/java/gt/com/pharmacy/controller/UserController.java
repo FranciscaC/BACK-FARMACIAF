@@ -1,7 +1,7 @@
-package gt.com.pharmacy.presentation.controller;
+package gt.com.pharmacy.controller;
 
-import gt.com.pharmacy.presentation.dto.AuthCreateUserRequestDTO;
-import gt.com.pharmacy.presentation.dto.AuthResponseDTO;
+import gt.com.pharmacy.persistence.dto.AuthCreateUserRequestDTO;
+import gt.com.pharmacy.persistence.dto.AuthResponseDTO;
 import gt.com.pharmacy.persistence.entity.UserEntity;
 import gt.com.pharmacy.service.implementation.UserDetailServiceImplementation;
 import jakarta.validation.Valid;

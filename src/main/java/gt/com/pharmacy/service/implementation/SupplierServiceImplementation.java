@@ -3,7 +3,7 @@ package gt.com.pharmacy.service.implementation;
 import gt.com.pharmacy.persistence.entity.SupplierEntity;
 import gt.com.pharmacy.persistence.mapper.ISupplierMapper;
 import gt.com.pharmacy.persistence.repository.ISupplierRepository;
-import gt.com.pharmacy.presentation.dto.SupplierDTO;
+import gt.com.pharmacy.persistence.dto.SupplierDTO;
 import org.springframework.stereotype.Service;
 
 @Service

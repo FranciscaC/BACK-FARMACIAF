@@ -1,8 +1,8 @@
-package gt.com.pharmacy.presentation.controller;
+package gt.com.pharmacy.controller;
 
-import gt.com.pharmacy.presentation.dto.AuthLoginRequestDTO;
-import gt.com.pharmacy.presentation.dto.AuthResponseDTO;
-import gt.com.pharmacy.presentation.dto.UserProfileResponseDTO;
+import gt.com.pharmacy.persistence.dto.AuthLoginRequestDTO;
+import gt.com.pharmacy.persistence.dto.AuthResponseDTO;
+import gt.com.pharmacy.persistence.dto.UserProfileResponseDTO;
 import gt.com.pharmacy.service.implementation.UserDetailServiceImplementation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

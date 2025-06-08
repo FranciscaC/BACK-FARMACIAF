@@ -1,7 +1,7 @@
 package gt.com.pharmacy.persistence.mapper;
 
 import gt.com.pharmacy.persistence.entity.SupplierEntity;
-import gt.com.pharmacy.presentation.dto.SupplierDTO;
+import gt.com.pharmacy.persistence.dto.SupplierDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

@@ -1,6 +1,6 @@
-package gt.com.pharmacy.presentation.controller;
+package gt.com.pharmacy.controller;
 
-import gt.com.pharmacy.presentation.dto.SupplierDTO;
+import gt.com.pharmacy.persistence.dto.SupplierDTO;
 import gt.com.pharmacy.service.implementation.SupplierServiceImplementation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

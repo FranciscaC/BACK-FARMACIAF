@@ -1,4 +1,4 @@
-package gt.com.pharmacy.presentation.dto;
+package gt.com.pharmacy.persistence.dto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
