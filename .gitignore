@@ -33,4 +33,4 @@ build/
 .vscode/
 
 # Agrega la siguiente línea para incluir la carpeta target
-!target/
+target
