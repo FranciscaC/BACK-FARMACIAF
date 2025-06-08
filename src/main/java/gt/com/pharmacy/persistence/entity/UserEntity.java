@@ -1,5 +1,6 @@
 package gt.com.pharmacy.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -49,6 +50,7 @@ public class UserEntity {
     @Column(name = "is_credentials_non_expired", nullable = false)
     private boolean isCredentialsNonExpired = true;
 
+    @JsonManagedReference
     @NotEmpty(message = "The user must have at least one role.")
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))

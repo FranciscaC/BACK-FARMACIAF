@@ -7,4 +7,8 @@ public class SecurityConstant {
     }
 
     public static final String ROLE_PREFIX = "ROLE_";
+    public static final String AUTHORITY_CREATE = "CREATE";
+    public static final String AUTHORITY_READ = "READ";
+    public static final String AUTHORITY_UPDATE = "UPDATE";
+    public static final String AUTHORITY_DELETE = "DELETE";
 }

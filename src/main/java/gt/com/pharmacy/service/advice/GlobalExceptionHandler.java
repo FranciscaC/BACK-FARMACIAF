@@ -1,5 +1,6 @@
 package gt.com.pharmacy.service.advice;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,5 +26,17 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String handleGenericException(Exception ex) {
         return "An unexpected error occurred: " + ex.getMessage();
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleEntityNotFoundException(EntityNotFoundException ex) {
+        return ex.getMessage();
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleIllegalArgumentException(IllegalArgumentException ex) {
+        return "Invalid request: " + ex.getMessage();
     }
 }

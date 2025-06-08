@@ -1,5 +1,6 @@
 package gt.com.pharmacy.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import gt.com.pharmacy.persistence.entity.enums.RoleEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -31,6 +32,7 @@ public class RoleEntity {
     @JoinTable(name = "role_permissions", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "permission_id"))
     private Set<PermissionEntity> permissionList = new HashSet<>();
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Set<UserEntity> users = new HashSet<>();
 }

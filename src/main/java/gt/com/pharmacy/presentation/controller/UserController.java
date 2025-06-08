@@ -13,33 +13,33 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@PreAuthorize("denyAll()")
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
-@PreAuthorize("denyAll()")
 public class UserController {
 
     private final UserDetailServiceImplementation userDetailServiceImplementation;
 
-    @PreAuthorize("hasAuthority('READ')")
-    @GetMapping
-    public ResponseEntity<List<UserEntity>> findAllUsers() {
-        return new ResponseEntity<>(this.userDetailServiceImplementation.findAllUsers(), HttpStatus.OK);
-    }
-
-    @PreAuthorize("hasAuthority('CREATE')")
+    @PreAuthorize("hasAuthority(@permissionConstants.create())")
     @PostMapping
     public ResponseEntity<AuthResponseDTO> register(@RequestBody @Valid AuthCreateUserRequestDTO authCreateUserRequestDTO) {
         return new ResponseEntity<>(this.userDetailServiceImplementation.createUser(authCreateUserRequestDTO), HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAuthority('UPDATE')")
+    @PreAuthorize("hasAnyAuthority(@permissionConstants.read())")
+    @GetMapping
+    public ResponseEntity<List<UserEntity>> findAllUsers() {
+        return new ResponseEntity<>(this.userDetailServiceImplementation.findAllUsers(), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAuthority(@permissionConstants.update())")
     @PutMapping("/{username}")
     public ResponseEntity<AuthResponseDTO> updateUser(@PathVariable String username, @RequestBody @Valid AuthCreateUserRequestDTO authCreateUserRequestDTO) {
         return new ResponseEntity<>(this.userDetailServiceImplementation.updateUser(username, authCreateUserRequestDTO), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('DELETE')")
+    @PreAuthorize("hasAuthority(@permissionConstants.delete())")
     @DeleteMapping("/{username}")
     public ResponseEntity<Void> deleteUser(@PathVariable String username) {
         this.userDetailServiceImplementation.deleteUser(username);

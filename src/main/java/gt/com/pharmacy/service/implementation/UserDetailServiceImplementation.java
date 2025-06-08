@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import gt.com.pharmacy.persistence.entity.enums.RoleEnum;
 import gt.com.pharmacy.presentation.dto.AuthCreateUserRequestDTO;
 import gt.com.pharmacy.presentation.dto.AuthLoginRequestDTO;
 import gt.com.pharmacy.presentation.dto.AuthResponseDTO;
@@ -63,12 +64,7 @@ public class UserDetailServiceImplementation implements UserDetailsService {
         Authentication authentication = this.authenticate(username, password);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String accessToken = jwtUtils.createToken(authentication);
-        return new AuthResponseDTO(
-                username,
-                "User logged successfully",
-                accessToken,
-                true
-        );
+        return new AuthResponseDTO(username, "User logged successfully", accessToken, true);
     }
 
     public Authentication authenticate(String username, String password) {
@@ -79,18 +75,15 @@ public class UserDetailServiceImplementation implements UserDetailsService {
         if (!passwordEncoder.matches(password, userDetails.getPassword())) {
             throw new BadCredentialsException("Invalid password.");
         }
-        return new UsernamePasswordAuthenticationToken(
-                username,
-                userDetails.getPassword(),
-                userDetails.getAuthorities()
-        );
+        return new UsernamePasswordAuthenticationToken(username, userDetails.getPassword(), userDetails.getAuthorities());
     }
 
     public AuthResponseDTO createUser(AuthCreateUserRequestDTO authCreateUserRequestDTO) {
         String username = authCreateUserRequestDTO.username();
         String password = authCreateUserRequestDTO.password();
         List<String> roleRequest = authCreateUserRequestDTO.authCreateRoleRequestDTO().roleListName();
-        Set<RoleEntity> roleEntitySet = new HashSet<>(iRoleRepository.findRoleEntitiesByRoleEnumIn(roleRequest));
+        List<RoleEnum> roleEnumList = roleRequest.stream().map(String::toUpperCase).map(RoleEnum::valueOf).toList();
+        Set<RoleEntity> roleEntitySet = new HashSet<>(iRoleRepository.findRoleEntitiesByRoleEnumIn(roleEnumList));
         if (roleEntitySet.isEmpty()) {
             throw new IllegalArgumentException("The roles specified " + " " + DOES_NOT_EXIST);
         }
@@ -102,18 +95,9 @@ public class UserDetailServiceImplementation implements UserDetailsService {
                 .build();
         UserEntity userCreated = iUserRepository.save(userEntity);
         List<SimpleGrantedAuthority> authorityList = buildAuthorityList(userCreated);
-        Authentication authentication = new UsernamePasswordAuthenticationToken(
-                userCreated.getUsername(),
-                userCreated.getPassword(),
-                authorityList
-        );
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userCreated.getUsername(), userCreated.getPassword(), authorityList);
         String accessToken = jwtUtils.createToken(authentication);
-        return new AuthResponseDTO(
-                userCreated.getUsername(),
-                "User created successfully",
-                accessToken,
-                true
-        );
+        return new AuthResponseDTO(userCreated.getUsername(), "User created successfully", accessToken, true);
     }
 
     public AuthResponseDTO updateUser(String username, AuthCreateUserRequestDTO authCreateUserRequestDTO) {
@@ -127,12 +111,7 @@ public class UserDetailServiceImplementation implements UserDetailsService {
         List<SimpleGrantedAuthority> authorityList = buildAuthorityList(updatedUser);
         Authentication authentication = new UsernamePasswordAuthenticationToken(updatedUser.getUsername(), updatedUser.getPassword(), authorityList);
         String accessToken = jwtUtils.createToken(authentication);
-        return new AuthResponseDTO(
-                updatedUser.getUsername(),
-                "User updated successfully",
-                accessToken,
-                true
-        );
+        return new AuthResponseDTO(updatedUser.getUsername(), "User updated successfully", accessToken, true);
     }
 
     @Transactional
