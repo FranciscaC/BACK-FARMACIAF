@@ -1,5 +1,6 @@
 package gt.com.pharmacy.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -12,7 +13,13 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "sale_items")
+@Table(
+        name = "sale_items",
+        indexes = {
+                @Index(name = "idx_item_presentation", columnList = "presentation_id"),
+                @Index(name = "idx_item_sale", columnList = "sale_id")
+        }
+)
 public class SaleItemEntity {
 
     @Id
@@ -32,12 +39,13 @@ public class SaleItemEntity {
 
     @NotNull(message = "Price cannot be null.")
     @DecimalMin(value = "0.01", message = "Price must be greater than 0.")
-    @Digits(integer = 8, fraction = 2, message = "Invalid price format")
+    @Digits(integer = 10, fraction = 2, message = "Invalid price format")
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
     @NotNull(message = "Sale reference cannot be null.")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sale_id", nullable = false)
+    @JsonBackReference
     private SaleEntity sale;
 }

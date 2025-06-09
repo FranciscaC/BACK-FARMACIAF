@@ -1,5 +1,7 @@
 package gt.com.pharmacy.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -14,7 +16,12 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "sales")
+@Table(
+        name = "sales",
+        indexes = {
+                @Index(name = "idx_sale_customer", columnList = "customer_id")
+        }
+)
 public class SaleEntity {
 
     @Id
@@ -29,10 +36,12 @@ public class SaleEntity {
     @NotNull(message = "Customer cannot be null.")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
+    @JsonBackReference
     private CustomerEntity customer;
 
     @NotNull(message = "Items cannot be null.")
     @Size(min = 1, message = "Sale must have at least 1 item.")
-    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "sale", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonManagedReference
     private List<SaleItemEntity> items = new ArrayList<>();
 }

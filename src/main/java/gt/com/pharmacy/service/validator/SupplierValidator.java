@@ -11,7 +11,19 @@ public class SupplierValidator {
 
     private final ISupplierRepository iSupplierRepository;
 
-    public void validateUniqueFields(SupplierDTO dto, Long idToExclude) {
+    public void validateOnCreate(SupplierDTO dto) {
+        validateRequireFields(dto);
+        validateFieldLengths(dto);
+        validateUniqueFieldsOnCreate(dto);
+    }
+
+    public void validateOnUpdate(SupplierDTO dto, Long idToExclude) {
+        validateRequireFields(dto);
+        validateFieldLengths(dto);
+        validateUniqueFields(dto, idToExclude);
+    }
+
+    private void validateUniqueFields(SupplierDTO dto, Long idToExclude) {
         if (dto.getName() != null && iSupplierRepository.existsByNameAndIdNot(dto.getName(), idToExclude)) {
             throw new IllegalArgumentException("Name already exists");
         }
@@ -23,7 +35,43 @@ public class SupplierValidator {
         }
     }
 
-    public void validateUniqueFieldsOnCreate(SupplierDTO dto) {
+    private void validateUniqueFieldsOnCreate(SupplierDTO dto) {
         validateUniqueFields(dto, null);
+    }
+
+    private void validateRequireFields(SupplierDTO dto) {
+        if (isBlank(dto.getName())) {
+            throw new IllegalArgumentException("Name is required");
+        }
+        if (isBlank(dto.getPhone())) {
+            throw new IllegalArgumentException("Phone is required");
+        }
+        if (isBlank(dto.getEmail())) {
+            throw new IllegalArgumentException("Email is required");
+        }
+        if (dto.getIsActive() == null) {
+            throw new IllegalArgumentException("Active status is required");
+        }
+    }
+
+    private void validateFieldLengths(SupplierDTO dto) {
+        validateLength(dto.getName(), 5, 75, "Name");
+        validateLength(dto.getPhone(), 8, 8, "Phone");
+        validateLength(dto.getAddress(), 5, 100, "Address");
+        if (dto.getEmail() != null) {
+            validateLength(dto.getEmail(), 0, 100, "Email");
+        }
+    }
+
+    private boolean isBlank(String value) {
+        return value == null || value.trim().isEmpty();
+    }
+
+    private void validateLength(String value, int min, int max, String fieldName) {
+        if (value == null) return;
+        int length = value.trim().length();
+        if (length < min || length > max) {
+            throw new IllegalArgumentException(String.format("%s must be between %d and %d characters", fieldName, min, max));
+        }
     }
 }

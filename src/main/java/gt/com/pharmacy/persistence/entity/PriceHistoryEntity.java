@@ -1,5 +1,6 @@
 package gt.com.pharmacy.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import gt.com.pharmacy.persistence.model.Price;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -13,7 +14,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "prices_history")
+@Table(
+        name = "prices_history",
+        indexes = @Index(name = "idx_price_presentation", columnList = "presentation_id")
+)
 public class PriceHistoryEntity {
 
     @Id
@@ -33,5 +37,6 @@ public class PriceHistoryEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "presentation_id", nullable = false)
+    @JsonBackReference
     private PresentationEntity presentation;
 }

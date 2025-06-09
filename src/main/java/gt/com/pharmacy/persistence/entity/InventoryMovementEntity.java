@@ -1,5 +1,6 @@
 package gt.com.pharmacy.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import gt.com.pharmacy.persistence.entity.enums.MovementTypeEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -13,7 +14,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "inventory_movements")
+@Table(
+        name = "inventory_movements",
+        indexes = {
+                @Index(name = "idx_movement_presentation", columnList = "presentation_id"),
+                @Index(name = "idx_movement_supplier", columnList = "supplier_id")
+        }
+)
 public class InventoryMovementEntity {
 
     @Id
@@ -43,9 +50,12 @@ public class InventoryMovementEntity {
     @NotNull(message = "Presentation cannot be null.")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "presentation_id", nullable = false)
+    @JsonBackReference("presentation-movement")
     private PresentationEntity presentation;
 
+    @NotNull(message = "Supplier cannot be null.")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "supplier_id")
+    @JoinColumn(name = "supplier_id", nullable = false)
+    @JsonBackReference("supplier-movement")
     private SupplierEntity supplier;
 }

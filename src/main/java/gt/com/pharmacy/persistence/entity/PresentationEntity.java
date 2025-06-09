@@ -1,11 +1,12 @@
 package gt.com.pharmacy.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import gt.com.pharmacy.persistence.model.Price;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.hibernate.annotations.Formula;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,10 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "presentations")
+@Table(
+        name = "presentations",
+        indexes = @Index(name = "idx_presentation_product", columnList = "product_id")
+)
 public class PresentationEntity {
 
     @Id
@@ -26,13 +30,13 @@ public class PresentationEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
+    @JsonBackReference
     private ProductEntity product;
 
     @Embedded
     private Price currentPrice;
 
-    @Formula("(SELECT COALESCE(SUM(CASE im.type WHEN 'INPUT' THEN im.quantity WHEN 'OUTPUT' THEN -im.quantity END), 0) " +
-            "FROM inventory_movements im WHERE im.presentation_id = id)")
+    @Column(name = "current_stock", nullable = false)
     private Integer currentStock;
 
     @NotBlank(message = "Description cannot be blank.")
@@ -40,6 +44,7 @@ public class PresentationEntity {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @OneToMany(mappedBy = "presentation", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "presentation", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonManagedReference
     private List<PriceHistoryEntity> priceHistory = new ArrayList<>();
 }

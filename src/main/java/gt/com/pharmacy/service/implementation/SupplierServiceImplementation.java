@@ -38,14 +38,14 @@ public class SupplierServiceImplementation extends AbstractCrudDtoServiceImpleme
     @Override
     @Transactional
     public SupplierDTO save(SupplierDTO dto) {
-        supplierValidator.validateUniqueFieldsOnCreate(dto);
+        supplierValidator.validateOnCreate(dto);
         return super.save(dto);
     }
 
     @Override
     @Transactional
     public SupplierDTO update(SupplierDTO dto, Long id) {
-        supplierValidator.validateUniqueFields(dto, id);
+        supplierValidator.validateOnUpdate(dto, id);
         return super.update(dto, id);
     }
 }
