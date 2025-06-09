@@ -2,7 +2,6 @@ package gt.com.pharmacy.persistence.entity;
 
 import gt.com.pharmacy.persistence.model.Price;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -29,7 +28,6 @@ public class PriceHistoryEntity {
     @Column(name = "effective_from", nullable = false)
     private LocalDateTime effectiveFrom;
 
-    @FutureOrPresent(message = "End date must be in future or present")
     @Column(name = "effective_to")
     private LocalDateTime effectiveTo;
 

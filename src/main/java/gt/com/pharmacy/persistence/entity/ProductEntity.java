@@ -24,7 +24,7 @@ public class ProductEntity {
     private Long id;
 
     @NotBlank(message = "Product code cannot be blank.")
-    @Size(min = 3, max = 20, message = "Code must be between 2 and 20 characters.")
+    @Size(min = 3, max = 20, message = "Code must be between 3 and 20 characters.")
     @Pattern(regexp = "^[A-Z0-9-]+$", message = "Code must contain only uppercase letters, numbers, and hyphens.")
     @Column(name = "code", length = 20, nullable = false, unique = true)
     private String code;
