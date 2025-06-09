@@ -4,16 +4,25 @@ import gt.com.pharmacy.persistence.entity.SupplierEntity;
 import gt.com.pharmacy.persistence.mapper.ISupplierMapper;
 import gt.com.pharmacy.persistence.repository.ISupplierRepository;
 import gt.com.pharmacy.persistence.dto.SupplierDTO;
+import gt.com.pharmacy.service.validator.SupplierValidator;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SupplierServiceImplementation extends AbstractCrudDtoServiceImplementation<SupplierDTO, SupplierEntity, Long> {
 
     private final ISupplierMapper iSupplierMapper;
 
-    public SupplierServiceImplementation(ISupplierRepository iSupplierRepository, ISupplierMapper iSupplierMapper) {
+    private final SupplierValidator supplierValidator;
+
+    public SupplierServiceImplementation(
+            ISupplierRepository iSupplierRepository,
+            ISupplierMapper iSupplierMapper,
+            SupplierValidator supplierValidator
+    ) {
         super(iSupplierRepository);
         this.iSupplierMapper = iSupplierMapper;
+        this.supplierValidator = supplierValidator;
     }
 
     @Override
@@ -27,11 +36,16 @@ public class SupplierServiceImplementation extends AbstractCrudDtoServiceImpleme
     }
 
     @Override
-    protected void updateEntityFromDto(SupplierDTO dto, SupplierEntity entity) {
-        if (dto.getName() != null) entity.setName(dto.getName());
-        if (dto.getAddress() != null) entity.setAddress(dto.getAddress());
-        if (dto.getPhone() != null) entity.setPhone(dto.getPhone());
-        if (dto.getEmail() != null) entity.setEmail(dto.getEmail());
-        if (dto.getIsActive() != null) entity.setIsActive(dto.getIsActive());
+    @Transactional
+    public SupplierDTO save(SupplierDTO dto) {
+        supplierValidator.validateUniqueFieldsOnCreate(dto);
+        return super.save(dto);
+    }
+
+    @Override
+    @Transactional
+    public SupplierDTO update(SupplierDTO dto, Long id) {
+        supplierValidator.validateUniqueFields(dto, id);
+        return super.update(dto, id);
     }
 }

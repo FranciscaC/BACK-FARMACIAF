@@ -35,15 +35,12 @@ public abstract class AbstractCrudDtoServiceImplementation<D, E, I> implements I
         return jpaRepository.findAll().stream().map(this::toDTO).toList();
     }
 
-    protected abstract void updateEntityFromDto(D dto, E entity);
-
     @Override
     public D update(D dto, I id) {
         if (id == null) {
             throw new IllegalArgumentException("ID cannot be null for update operation");
         }
         E existingEntity = jpaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entity with id " + id + " not found"));
-        updateEntityFromDto(dto, existingEntity);
         return toDTO(jpaRepository.save(existingEntity));
     }
 

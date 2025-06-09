@@ -6,4 +6,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ISupplierRepository extends JpaRepository<SupplierEntity, Long> {
+
+    boolean existsByNameAndIdNot(String name, Long idToExclude);
+
+    boolean existsByPhoneAndIdNot(String phone, Long idToExclude);
+
+    boolean existsByEmailAndIdNot(String email, Long idToExclude);
 }

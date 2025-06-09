@@ -25,19 +25,20 @@ public class SupplierEntity {
     @Column(name = "name", length = 75, nullable = false, unique = true)
     private String name;
 
-    @NotBlank(message = "Address cannot be blank.")
-    @Size(min = 5, max = 100, message = "Address must between 5 and 100 characters.")
-    @Column(name = "address", length = 100, nullable = false)
-    private String address;
-
     @NotBlank(message = "Phone number cannot be blank")
     @Size(min = 8, max = 8, message = "Phone number must be exactly 8 characters long")
     @Pattern(regexp = "^\\d{8}$", message = "Phone number must contain exactly 8 digits (0-9)")
+    @Column(name = "phone", length = 8, unique = true)
     private String phone;
 
     @Email(message = "Invalid email format.")
-    @Column(name = "email", length = 100)
+    @Column(name = "email", length = 100, unique = true)
     private String email;
+
+    @NotBlank(message = "Address cannot be blank.")
+    @Size(min = 5, max = 100, message = "Address must between 5 and 100 characters.")
+    @Column(name = "address", length = 100)
+    private String address;
 
     @NotNull(message = "Active status cannot be null.")
     @Column(name = "is_active", nullable = false)

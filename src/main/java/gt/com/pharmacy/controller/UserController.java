@@ -23,7 +23,7 @@ public class UserController {
 
     @PreAuthorize("hasAuthority(@permissionConstants.create())")
     @PostMapping
-    public ResponseEntity<AuthResponseDTO> register(@RequestBody @Valid AuthCreateUserRequestDTO authCreateUserRequestDTO) {
+    public ResponseEntity<AuthResponseDTO> register(@Valid @RequestBody AuthCreateUserRequestDTO authCreateUserRequestDTO) {
         return new ResponseEntity<>(this.userDetailServiceImplementation.createUser(authCreateUserRequestDTO), HttpStatus.CREATED);
     }
 
@@ -35,7 +35,7 @@ public class UserController {
 
     @PreAuthorize("hasAuthority(@permissionConstants.update())")
     @PutMapping("/{username}")
-    public ResponseEntity<AuthResponseDTO> updateUser(@PathVariable String username, @RequestBody @Valid AuthCreateUserRequestDTO authCreateUserRequestDTO) {
+    public ResponseEntity<AuthResponseDTO> updateUser(@PathVariable String username, @Valid @RequestBody AuthCreateUserRequestDTO authCreateUserRequestDTO) {
         return new ResponseEntity<>(this.userDetailServiceImplementation.updateUser(username, authCreateUserRequestDTO), HttpStatus.OK);
     }
 
