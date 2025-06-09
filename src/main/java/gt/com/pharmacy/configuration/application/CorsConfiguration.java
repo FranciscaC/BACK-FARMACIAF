@@ -1,4 +1,4 @@
-package gt.com.pharmacy.configuration.app;
+package gt.com.pharmacy.configuration.application;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

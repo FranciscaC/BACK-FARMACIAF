@@ -21,12 +21,4 @@ public class CustomerServiceImplementation extends AbstractCrudDtoServiceImpleme
 
     @Override
     public CustomerEntity toEntity(CustomerDTO dto) {return iCustomerMapper.toEntity(dto);}
-
-    @Override
-    protected void updateEntityFromDto(CustomerDTO dto, CustomerEntity entity) {
-        if (dto.getFullName() != null) entity.setFullName(dto.getFullName());
-        if (dto.getNit() != null) entity.setNit(dto.getNit());
-        if (dto.getPhone() != null) entity.setPhone(dto.getPhone());
-        if (dto.getEmail() != null) entity.setEmail(dto.getEmail());
-    }
 }

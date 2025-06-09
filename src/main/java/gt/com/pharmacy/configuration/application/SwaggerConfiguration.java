@@ -1,4 +1,4 @@
-package gt.com.pharmacy.configuration.app;
+package gt.com.pharmacy.configuration.application;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
