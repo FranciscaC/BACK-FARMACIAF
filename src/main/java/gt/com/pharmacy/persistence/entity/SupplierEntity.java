@@ -30,11 +30,11 @@ public class SupplierEntity {
     @NotBlank(message = "Phone number cannot be blank")
     @Size(min = 8, max = 8, message = "Phone number must be exactly 8 characters long")
     @Pattern(regexp = "^\\d{8}$", message = "Phone number must contain exactly 8 digits (0-9)")
-    @Column(name = "phone", length = 8, unique = true)
+    @Column(name = "phone", length = 8, nullable = false, unique = true)
     private String phone;
 
     @Email(message = "Invalid email format.")
-    @Column(name = "email", length = 100, unique = true)
+    @Column(name = "email", nullable = false, length = 100, unique = true)
     private String email;
 
     @NotBlank(message = "Address cannot be blank.")
@@ -47,6 +47,6 @@ public class SupplierEntity {
     private Boolean isActive;
 
     @OneToMany(mappedBy = "supplier", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonManagedReference
-    private List<InventoryMovementEntity> inputs = new ArrayList<>();
+    @JsonManagedReference("supplier-movement")
+    private List<InventoryMovementEntity> movements = new ArrayList<>();
 }

@@ -45,6 +45,10 @@ public class PresentationEntity {
     private String description;
 
     @OneToMany(mappedBy = "presentation", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonManagedReference
+    @JsonManagedReference("presentation-price")
     private List<PriceHistoryEntity> priceHistory = new ArrayList<>();
+
+    @OneToMany(mappedBy = "presentation", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonManagedReference("presentation-movement")
+    private List<InventoryMovementEntity> movements = new ArrayList<>();
 }

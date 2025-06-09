@@ -37,6 +37,6 @@ public class PriceHistoryEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "presentation_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference("presentation-price")
     private PresentationEntity presentation;
 }
