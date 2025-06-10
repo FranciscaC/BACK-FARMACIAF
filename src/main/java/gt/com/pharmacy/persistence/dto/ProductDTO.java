@@ -2,7 +2,7 @@ package gt.com.pharmacy.persistence.dto;
 
 import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,5 +17,5 @@ public class ProductDTO {
 
     private String name;
 
-    private List<PresentationDTO> presentations;
+    private Set<PresentationDTO> presentations;
 }

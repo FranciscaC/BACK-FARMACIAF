@@ -7,19 +7,23 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class SupplierValidator {
+public class SupplierValidator extends BaseValidator {
 
     private final ISupplierRepository iSupplierRepository;
 
     public void validateOnCreate(SupplierDTO dto) {
         validateRequireFields(dto);
         validateFieldLengths(dto);
+        validatePhoneFormat(dto.getPhone());
+        validateEmailFormat(dto.getEmail());
         validateUniqueFieldsOnCreate(dto);
     }
 
     public void validateOnUpdate(SupplierDTO dto, Long idToExclude) {
         validateRequireFields(dto);
         validateFieldLengths(dto);
+        validatePhoneFormat(dto.getPhone());
+        validateEmailFormat(dto.getEmail());
         validateUniqueFields(dto, idToExclude);
     }
 
@@ -49,6 +53,9 @@ public class SupplierValidator {
         if (isBlank(dto.getEmail())) {
             throw new IllegalArgumentException("Email is required");
         }
+        if (isBlank(dto.getAddress())) {
+            throw new IllegalArgumentException("Address is required");
+        }
         if (dto.getIsActive() == null) {
             throw new IllegalArgumentException("Active status is required");
         }
@@ -59,19 +66,8 @@ public class SupplierValidator {
         validateLength(dto.getPhone(), 8, 8, "Phone");
         validateLength(dto.getAddress(), 5, 100, "Address");
         if (dto.getEmail() != null) {
-            validateLength(dto.getEmail(), 0, 100, "Email");
+            validateLength(dto.getEmail(), 1, 100, "Email");
         }
-    }
 
-    private boolean isBlank(String value) {
-        return value == null || value.trim().isEmpty();
-    }
-
-    private void validateLength(String value, int min, int max, String fieldName) {
-        if (value == null) return;
-        int length = value.trim().length();
-        if (length < min || length > max) {
-            throw new IllegalArgumentException(String.format("%s must be between %d and %d characters", fieldName, min, max));
-        }
     }
 }

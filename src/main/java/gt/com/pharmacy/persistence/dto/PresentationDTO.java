@@ -1,5 +1,6 @@
 package gt.com.pharmacy.persistence.dto;
 
+import gt.com.pharmacy.persistence.model.Price;
 import lombok.*;
 
 import java.util.List;
@@ -13,20 +14,15 @@ public class PresentationDTO {
 
     private Long id;
 
-    private String description;
-
     private ProductDTO product;
 
-    private PriceDTO price;
+    private Price currentPrice;
+
+    private Integer currentStock;
+
+    private String description;
+
+    private List<PriceHistoryDTO> priceHistory;
 
     private List<InventoryMovementDTO> movements;
-
-    public Integer getCurrentStock() {
-        if (movements == null || movements.isEmpty()) return 0;
-        return movements.stream()
-                .mapToInt(m -> switch (m.getType()) {
-                    case INPUT, RETURN -> m.getQuantity();
-                    case OUTPUT, ADJUSTMENT -> -m.getQuantity();
-                }).sum();
-    }
 }

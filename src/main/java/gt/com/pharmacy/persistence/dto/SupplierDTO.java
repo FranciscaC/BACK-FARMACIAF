@@ -34,5 +34,5 @@ public class SupplierDTO {
     private Boolean isActive;
 
     @JsonView(Views.Detailed.class)
-    private List<InventoryMovementDTO> inputs;
+    private List<InventoryMovementDTO> movements;
 }

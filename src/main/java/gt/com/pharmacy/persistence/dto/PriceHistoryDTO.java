@@ -1,8 +1,8 @@
 package gt.com.pharmacy.persistence.dto;
 
+import gt.com.pharmacy.persistence.model.Price;
 import lombok.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
@@ -10,13 +10,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PriceDTO {
+public class PriceHistoryDTO {
 
     private Long id;
 
-    private BigDecimal pharmacyPrice;
-
-    private BigDecimal publicPrice;
+    private Price price;
 
     private LocalDateTime effectiveFrom;
 
