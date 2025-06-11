@@ -6,4 +6,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ICustomerRepository extends JpaRepository<CustomerEntity, Long> {
+
+    boolean existsByFullNameAndIdNot(String fullName, Long idToExclude);
+
+    boolean existsByNitAndIdNot(String nit, Long idToExclude);
+
+    boolean existsByPhoneAndIdNot(String phone, Long idToExclude);
+
+    boolean existsByEmailAndIdNot(String email, Long idToExclude);
 }

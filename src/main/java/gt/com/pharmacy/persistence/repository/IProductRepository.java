@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IProductRepository extends JpaRepository<ProductEntity, Long> {
+
+    boolean existsByCodeAndIdNot(String code, Long idToExclude);
 }

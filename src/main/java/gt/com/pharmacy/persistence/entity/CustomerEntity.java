@@ -33,7 +33,7 @@ public class CustomerEntity {
     @NotBlank(message = "NIT cannot be blank.")
     @Size(min = 7, max = 12, message = "NIT must be between 7-12 characters.")
     @Pattern(regexp = "^[0-9A-Za-z-]+$", message = "Invalid NIT format")
-    @Column(name = "nit", length = 12, unique = true)
+    @Column(name = "nit", length = 12, nullable = false, unique = true)
     private String nit;
 
     @NotBlank(message = "Phone cannot be blank.")
