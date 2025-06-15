@@ -31,6 +31,15 @@ abstract class BaseValidator {
         }
     }
 
+    protected void validateNameFormat(String name) {
+        if (name == null) {
+            return;
+        }
+        if (!name.matches("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ\\s.,-]+$")) {
+            throw new IllegalArgumentException("Name can only contain letters, numbers, spaces, and basic punctuation (.,-)");
+        }
+    }
+
     protected boolean isBlank(String value) {
         return value == null || value.trim().isEmpty();
     }

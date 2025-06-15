@@ -14,6 +14,7 @@ public class SupplierValidator extends BaseValidator {
     public void validateOnCreate(SupplierDTO dto) {
         validateRequireFields(dto);
         validateFieldLengths(dto);
+        validateNameFormat(dto.getName());
         validatePhoneFormat(dto.getPhone());
         validateEmailFormat(dto.getEmail());
         validateUniqueFieldsOnCreate(dto);
@@ -22,6 +23,7 @@ public class SupplierValidator extends BaseValidator {
     public void validateOnUpdate(SupplierDTO dto, Long idToExclude) {
         validateRequireFields(dto);
         validateFieldLengths(dto);
+        validateNameFormat(dto.getName());
         validatePhoneFormat(dto.getPhone());
         validateEmailFormat(dto.getEmail());
         validateUniqueFields(dto, idToExclude);

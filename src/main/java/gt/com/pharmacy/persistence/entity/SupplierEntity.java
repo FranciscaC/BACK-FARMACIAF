@@ -24,6 +24,7 @@ public class SupplierEntity {
 
     @NotBlank(message = "Name cannot be blank.")
     @Size(min = 5, max = 75, message = "Name must between 5 and 75 characters.")
+    @Pattern(regexp = "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ\\s.,-]+$", message = "Supplier name can only contain letters, numbers, spaces, and basic punctuation")
     @Column(name = "name", length = 75, nullable = false, unique = true)
     private String name;
 
