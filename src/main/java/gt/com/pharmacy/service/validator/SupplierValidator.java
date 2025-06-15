@@ -66,7 +66,7 @@ public class SupplierValidator extends BaseValidator {
         validateLength(dto.getPhone(), 8, 8, "Phone");
         validateLength(dto.getAddress(), 5, 100, "Address");
         if (dto.getEmail() != null) {
-            validateLength(dto.getEmail(), 1, 100, "Email");
+            validateLength(dto.getEmail(), 5, 50, "Email");
         }
 
     }

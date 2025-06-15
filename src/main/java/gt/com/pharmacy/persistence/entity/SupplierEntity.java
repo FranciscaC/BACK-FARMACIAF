@@ -34,12 +34,12 @@ public class SupplierEntity {
     private String phone;
 
     @Email(message = "Invalid email format.")
-    @Column(name = "email", nullable = false, length = 100, unique = true)
+    @Column(name = "email", nullable = false, length = 50, unique = true)
     private String email;
 
     @NotBlank(message = "Address cannot be blank.")
     @Size(min = 5, max = 100, message = "Address must between 5 and 100 characters.")
-    @Column(name = "address", length = 100)
+    @Column(name = "address", length = 100, nullable = false)
     private String address;
 
     @NotNull(message = "Active status cannot be null.")

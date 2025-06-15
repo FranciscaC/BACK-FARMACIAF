@@ -62,7 +62,7 @@ public class CustomerValidator extends BaseValidator {
     }
 
     private void validateFieldLengths(CustomerDTO dto) {
-        validateLength(dto.getFullName(), 2, 75, "Full name");
+        validateLength(dto.getFullName(), 5, 75, "Full name");
         validateLength(dto.getNit(), 7, 12, "NIT");
         validateLength(dto.getPhone(), 8, 8, "Phone");
         if (dto.getEmail() != null) {

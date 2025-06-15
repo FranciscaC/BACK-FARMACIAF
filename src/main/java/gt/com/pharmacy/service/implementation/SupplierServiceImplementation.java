@@ -5,6 +5,7 @@ import gt.com.pharmacy.persistence.mapper.ISupplierMapper;
 import gt.com.pharmacy.persistence.repository.ISupplierRepository;
 import gt.com.pharmacy.persistence.dto.SupplierDTO;
 import gt.com.pharmacy.service.validator.SupplierValidator;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,6 +47,8 @@ public class SupplierServiceImplementation extends AbstractCrudDtoServiceImpleme
     @Transactional
     public SupplierDTO update(SupplierDTO dto, Long id) {
         supplierValidator.validateOnUpdate(dto, id);
+        SupplierEntity existingEntity = jpaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Supplier not found"));
+        iSupplierMapper.updateEntityFromDto(dto, existingEntity);
         return super.update(dto, id);
     }
 }
