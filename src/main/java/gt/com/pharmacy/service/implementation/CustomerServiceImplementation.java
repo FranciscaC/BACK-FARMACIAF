@@ -5,6 +5,7 @@ import gt.com.pharmacy.persistence.entity.CustomerEntity;
 import gt.com.pharmacy.persistence.mapper.ICustomerMapper;
 import gt.com.pharmacy.persistence.repository.ICustomerRepository;
 import gt.com.pharmacy.service.validator.CustomerValidator;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +39,7 @@ public class CustomerServiceImplementation extends AbstractCrudDtoServiceImpleme
     @Transactional
     public CustomerDTO save(CustomerDTO dto) {
         customerValidator.validateOnCreate(dto);
+
         return super.save(dto);
     }
 
@@ -45,6 +47,8 @@ public class CustomerServiceImplementation extends AbstractCrudDtoServiceImpleme
     @Transactional
     public CustomerDTO update(CustomerDTO dto, Long id) {
         customerValidator.validateOnUpdate(dto, id);
+        CustomerEntity existingEntity = jpaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Customer not found"));
+        iCustomerMapper.updateEntityFromDto(dto, existingEntity);
         return super.update(dto, id);
     }
 }

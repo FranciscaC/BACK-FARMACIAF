@@ -27,6 +27,7 @@ public class CustomerEntity {
 
     @NotBlank(message = "Full name cannot be blank.")
     @Size(min = 5, max = 75, message = "Full name must be between 2-75 characters.")
+    @Pattern(regexp = "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ\\s.,-]+$", message = "Supplier name can only contain letters, numbers, spaces, and basic punctuation")
     @Column(name = "full_name", length = 75, nullable = false, unique = true)
     private String fullName;
 

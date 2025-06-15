@@ -14,6 +14,7 @@ public class CustomerValidator extends BaseValidator {
     public void validateOnCreate(CustomerDTO dto) {
         validateRequireFields(dto);
         validateFieldLengths(dto);
+        validateNameFormat(dto.getFullName());
         validatePhoneFormat(dto.getPhone());
         validateEmailFormat(dto.getEmail());
         validateUniqueFieldsOnCreate(dto);
@@ -22,6 +23,7 @@ public class CustomerValidator extends BaseValidator {
     public void validateOnUpdate(CustomerDTO dto, Long idToExclude) {
         validateRequireFields(dto);
         validateFieldLengths(dto);
+        validateNameFormat(dto.getFullName());
         validatePhoneFormat(dto.getPhone());
         validateEmailFormat(dto.getEmail());
         validateUniqueFields(dto, idToExclude);
