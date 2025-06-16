@@ -18,13 +18,6 @@ public class PresentationValidator extends BaseValidator {
         validatePrice(dto.getCurrentPrice());
     }
 
-    public void validateOnUpdate(PresentationDTO dto) {
-        validateRequiredFields(dto);
-        validateFieldLengths(dto);
-        validateStock(dto.getCurrentStock());
-        validatePrice(dto.getCurrentPrice());
-    }
-
     private void validatePrice(Price price) {
         if (price == null) {
             throw new IllegalArgumentException("Price is required");

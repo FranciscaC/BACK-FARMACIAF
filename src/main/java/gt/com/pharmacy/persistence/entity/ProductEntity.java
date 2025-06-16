@@ -36,6 +36,6 @@ public class ProductEntity {
     private String name;
 
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonManagedReference
+    @JsonManagedReference("product-presentation")
     private Set<PresentationEntity> presentations = new HashSet<>();
 }

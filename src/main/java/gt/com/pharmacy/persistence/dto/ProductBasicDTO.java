@@ -5,15 +5,13 @@ import com.fasterxml.jackson.annotation.JsonView;
 import gt.com.pharmacy.persistence.view.Views;
 import lombok.*;
 
-import java.util.Set;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProductDTO {
+public class ProductBasicDTO {
 
     @JsonView(Views.Public.class)
     private Long id;
@@ -23,7 +21,4 @@ public class ProductDTO {
 
     @JsonView(Views.Public.class)
     private String name;
-
-    @JsonView(Views.Detailed.class)
-    private Set<PresentationBasicDTO> presentations;
 }

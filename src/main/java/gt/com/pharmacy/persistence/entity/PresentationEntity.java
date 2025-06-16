@@ -30,7 +30,7 @@ public class PresentationEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference("product-presentation")
     private ProductEntity product;
 
     @Embedded

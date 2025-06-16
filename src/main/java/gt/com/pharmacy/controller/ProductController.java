@@ -1,6 +1,8 @@
 package gt.com.pharmacy.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import gt.com.pharmacy.persistence.dto.ProductDTO;
+import gt.com.pharmacy.persistence.view.Views;
 import gt.com.pharmacy.service.implementation.ProductServiceImplementation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,12 +23,14 @@ public class ProductController {
 
     @PreAuthorize("hasAuthority(@permissionConstants.create())")
     @PostMapping
+    @JsonView(Views.Public.class)
     public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody ProductDTO productDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productServiceImplementation.save(productDTO));
     }
 
     @PreAuthorize("hasAuthority(@permissionConstants.read())")
     @GetMapping("/{id}")
+    @JsonView(Views.Public.class)
     public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
         return productServiceImplementation.findById(id)
                 .map(ResponseEntity::ok)
@@ -35,12 +39,14 @@ public class ProductController {
 
     @PreAuthorize("hasAuthority(@permissionConstants.read())")
     @GetMapping
+    @JsonView(Views.Public.class)
     public ResponseEntity<List<ProductDTO>> getAllProducts() {
         return ResponseEntity.ok(productServiceImplementation.findAll());
     }
 
     @PreAuthorize("hasAuthority(@permissionConstants.update())")
     @PutMapping("/{id}")
+    @JsonView(Views.Public.class)
     public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @Valid @RequestBody ProductDTO productDTO) {
         return ResponseEntity.ok(productServiceImplementation.update(productDTO, id));
     }

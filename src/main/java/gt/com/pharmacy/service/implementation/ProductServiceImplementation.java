@@ -5,6 +5,7 @@ import gt.com.pharmacy.persistence.entity.ProductEntity;
 import gt.com.pharmacy.persistence.mapper.IProductMapper;
 import gt.com.pharmacy.persistence.repository.IProductRepository;
 import gt.com.pharmacy.service.validator.ProductValidator;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,6 +46,8 @@ public class ProductServiceImplementation extends AbstractCrudDtoServiceImplemen
     @Transactional
     public ProductDTO update(ProductDTO dto, Long id) {
         productValidator.validateOnUpdate(dto, id);
+        ProductEntity existingEntity = jpaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Product not found"));
+        iProductMapper.updateEntityFromDto(dto, existingEntity);
         return super.update(dto, id);
     }
 }

@@ -2,10 +2,9 @@ package gt.com.pharmacy.persistence.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
+import gt.com.pharmacy.persistence.model.Price;
 import gt.com.pharmacy.persistence.view.Views;
 import lombok.*;
-
-import java.util.Set;
 
 @Getter
 @Setter
@@ -13,17 +12,17 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProductDTO {
+public class PresentationBasicDTO {
 
     @JsonView(Views.Public.class)
     private Long id;
 
     @JsonView(Views.Public.class)
-    private String code;
+    private String description;
 
     @JsonView(Views.Public.class)
-    private String name;
+    private Price currentPrice;
 
-    @JsonView(Views.Detailed.class)
-    private Set<PresentationBasicDTO> presentations;
+    @JsonView(Views.Public.class)
+    private Integer currentStock;
 }
