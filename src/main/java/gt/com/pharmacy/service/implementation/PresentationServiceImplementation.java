@@ -78,6 +78,7 @@ public class PresentationServiceImplementation extends AbstractCrudDtoServiceImp
         }
         existing.setDescription(dto.getDescription());
         existing.setCurrentStock(dto.getCurrentStock());
-        return toDTO(existing);
+        PresentationEntity updated = jpaRepository.save(existing);
+        return toDTO(updated);
     }
 }
