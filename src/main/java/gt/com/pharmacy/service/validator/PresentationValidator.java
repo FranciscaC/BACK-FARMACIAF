@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 public class PresentationValidator extends BaseValidator {
 
-    public void validateOnCreate(PresentationDTO dto) {
+    public void validate(PresentationDTO dto) {
         validateRequiredFields(dto);
         validateFieldLengths(dto);
         validateStock(dto.getCurrentStock());

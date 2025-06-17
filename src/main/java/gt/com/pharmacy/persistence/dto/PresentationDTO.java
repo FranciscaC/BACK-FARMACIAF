@@ -32,8 +32,5 @@ public class PresentationDTO {
     private String description;
 
     @JsonView(Views.Detailed.class)
-    private List<PriceHistoryDTO> priceHistory;
-
-    @JsonView(Views.Detailed.class)
     private List<InventoryMovementDTO> movements;
 }
