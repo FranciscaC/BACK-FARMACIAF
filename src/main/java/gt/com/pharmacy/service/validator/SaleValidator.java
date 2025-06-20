@@ -14,18 +14,9 @@ public class SaleValidator extends BaseValidator {
         validateDate(dto.getDate());
     }
 
-    public void validateOnUpdate(SaleDTO dto) {
-        validateRequiredFields(dto);
-        validateItems(dto);
-        validateDate(dto.getDate());
-    }
-
     private void validateRequiredFields(SaleDTO dto) {
         if (dto.getDate() == null) {
             throw new IllegalArgumentException("Sale date is required");
-        }
-        if (dto.getCustomer() == null) {
-            throw new IllegalArgumentException("Customer is required");
         }
         if (dto.getItems() == null || dto.getItems().isEmpty()) {
             throw new IllegalArgumentException("Sale must have at least 1 item");

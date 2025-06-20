@@ -39,12 +39,6 @@ public class SaleController {
         return ResponseEntity.ok(saleService.findAll());
     }
 
-    @PreAuthorize("hasAuthority(@permissionConstants.update())")
-    @PutMapping("/{id}")
-    public ResponseEntity<SaleDTO> updateSale(@PathVariable Long id, @Valid @RequestBody SaleDTO dto) {
-        return ResponseEntity.ok(saleService.update(dto, id));
-    }
-
     @PreAuthorize("hasAuthority(@permissionConstants.delete())")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSale(@PathVariable Long id) {

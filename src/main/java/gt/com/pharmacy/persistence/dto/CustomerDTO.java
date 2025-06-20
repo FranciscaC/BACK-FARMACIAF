@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import gt.com.pharmacy.persistence.view.Views;
 import lombok.*;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -29,7 +27,4 @@ public class CustomerDTO {
 
     @JsonView(Views.Public.class)
     private String email;
-
-    @JsonView(Views.Detailed.class)
-    private List<SaleDTO> sales;
 }

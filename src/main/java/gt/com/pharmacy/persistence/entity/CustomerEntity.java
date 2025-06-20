@@ -1,15 +1,11 @@
 package gt.com.pharmacy.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -46,8 +42,4 @@ public class CustomerEntity {
     @Email(message = "Invalid email format.")
     @Column(name = "email", length = 50, nullable = false, unique = true)
     private String email;
-
-    @OneToMany(mappedBy = "customer", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonManagedReference
-    private List<SaleEntity> sales = new ArrayList<>();
 }

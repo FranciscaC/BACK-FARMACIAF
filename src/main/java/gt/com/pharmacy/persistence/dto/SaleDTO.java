@@ -2,6 +2,7 @@ package gt.com.pharmacy.persistence.dto;
 
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class SaleDTO {
 
     private LocalDateTime date;
 
-    private CustomerDTO customer;
+    private BigDecimal total;
 
     private List<SaleItemDTO> items;
 }
