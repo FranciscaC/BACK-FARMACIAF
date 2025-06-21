@@ -36,7 +36,7 @@ public class PresentationEntity {
     @Embedded
     private Price currentPrice;
 
-    @Column(name = "current_stock", nullable = false)
+    @Column(name = "current_stock")
     private Integer currentStock;
 
     @NotBlank(message = "Description cannot be blank.")

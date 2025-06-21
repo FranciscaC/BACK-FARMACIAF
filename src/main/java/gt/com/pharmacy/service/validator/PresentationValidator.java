@@ -14,7 +14,6 @@ public class PresentationValidator extends BaseValidator {
     public void validate(PresentationDTO dto) {
         validateRequiredFields(dto);
         validateFieldLengths(dto);
-        validateStock(dto.getCurrentStock());
         validatePrice(dto.getCurrentPrice());
     }
 
@@ -28,21 +27,12 @@ public class PresentationValidator extends BaseValidator {
         }
     }
 
-    private void validateStock(Integer stock) {
-        if (stock == null || stock < 0) {
-            throw new IllegalArgumentException("Stock must be a positive number");
-        }
-    }
-
     private void validateRequiredFields(PresentationDTO dto) {
         if (isBlank(dto.getDescription())) {
             throw new IllegalArgumentException("Description is required");
         }
         if (dto.getCurrentPrice() == null) {
             throw new IllegalArgumentException("Current price is required");
-        }
-        if (dto.getCurrentStock() == null) {
-            throw new IllegalArgumentException("Current stock is required");
         }
     }
 

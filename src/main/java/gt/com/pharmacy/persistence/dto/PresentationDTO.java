@@ -6,8 +6,6 @@ import gt.com.pharmacy.persistence.model.Price;
 import gt.com.pharmacy.persistence.view.Views;
 import lombok.*;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -30,7 +28,4 @@ public class PresentationDTO {
 
     @JsonView(Views.Public.class)
     private String description;
-
-    @JsonView(Views.Detailed.class)
-    private List<InventoryMovementDTO> movements;
 }

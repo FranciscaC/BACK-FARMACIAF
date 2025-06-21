@@ -45,6 +45,7 @@ public class PresentationServiceImplementation extends AbstractCrudDtoServiceImp
     public PresentationDTO save(PresentationDTO dto) {
         presentationValidator.validate(dto);
         PresentationEntity presentation = iPresentationMapper.toEntity(dto);
+        presentation.setCurrentStock(0);
         if (presentation.getPriceHistory() == null) {
             presentation.setPriceHistory(new ArrayList<>());
         }
@@ -77,7 +78,6 @@ public class PresentationServiceImplementation extends AbstractCrudDtoServiceImp
             existing.setCurrentPrice(newPrice);
         }
         existing.setDescription(dto.getDescription());
-        existing.setCurrentStock(dto.getCurrentStock());
         PresentationEntity updated = jpaRepository.save(existing);
         return toDTO(updated);
     }
