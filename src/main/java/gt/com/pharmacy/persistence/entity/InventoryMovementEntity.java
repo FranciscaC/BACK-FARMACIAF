@@ -53,9 +53,8 @@ public class InventoryMovementEntity {
     @JsonBackReference("presentation-movement")
     private PresentationEntity presentation;
 
-    @NotNull(message = "Supplier cannot be null.")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "supplier_id", nullable = false)
+    @JoinColumn(name = "supplier_id")
     @JsonBackReference("supplier-movement")
     private SupplierEntity supplier;
 }

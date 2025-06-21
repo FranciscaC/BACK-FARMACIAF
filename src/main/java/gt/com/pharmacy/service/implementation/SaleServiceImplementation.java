@@ -51,7 +51,9 @@ public class SaleServiceImplementation extends AbstractCrudDtoServiceImplementat
     public SaleDTO save(SaleDTO dto) {
         validator.validateOnCreate(dto);
         SaleEntity sale = toEntity(dto);
-        sale.setDate(LocalDateTime.now());
+        if (sale.getDate() == null) {
+            sale.setDate(LocalDateTime.now());
+        }
         processSaleItems(sale);
         calculateSaleTotal(sale);
         SaleEntity saved = super.jpaRepository.save(sale);
