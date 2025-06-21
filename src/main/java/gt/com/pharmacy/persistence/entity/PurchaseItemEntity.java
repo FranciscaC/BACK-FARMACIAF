@@ -20,11 +20,11 @@ public class PurchaseItemEntity {
     @SequenceGenerator(name = "purchase_item_seq", sequenceName = "purchase_item_sequence", allocationSize = 1)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "purchase_id", nullable = false)
     private PurchaseEntity purchase;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "presentation_id", nullable = false)
     private PresentationEntity presentation;
 

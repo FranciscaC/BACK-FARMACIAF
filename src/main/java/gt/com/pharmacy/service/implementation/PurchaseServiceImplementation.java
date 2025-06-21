@@ -58,7 +58,7 @@ public class PurchaseServiceImplementation extends AbstractCrudDtoServiceImpleme
                 .build();
         List<PurchaseItemEntity> items = dto.getItems().stream()
                 .map(item -> {
-                    PresentationEntity presentation = presentationRepository.findById(item.getPresentation().getId())
+                    PresentationEntity presentation = presentationRepository.findById(item.getPresentationId())
                             .orElseThrow(() -> new EntityNotFoundException("Presentation not found"));
                     presentation.setCurrentStock(presentation.getCurrentStock() + item.getQuantity());
                     InventoryMovementEntity movement = InventoryMovementEntity.builder()
@@ -67,7 +67,7 @@ public class PurchaseServiceImplementation extends AbstractCrudDtoServiceImpleme
                             .quantity(item.getQuantity())
                             .presentation(presentation)
                             .supplier(supplier)
-                            .note("Purchase registered: " + purchase.getId())
+                            .note("Purchase registered")
                             .build();
                     presentation.getMovements().add(movement);
                     return PurchaseItemEntity.builder()

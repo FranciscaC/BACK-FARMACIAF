@@ -16,12 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(
-        name = "sales",
-        indexes = {
-                @Index(name = "idx_sale_customer", columnList = "customer_id")
-        }
-)
+@Table(name = "sales")
 public class SaleEntity {
 
     @Id

@@ -24,7 +24,7 @@ public class PurchaseEntity {
     private Long id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "supplier_id", nullable = false)
     private SupplierEntity supplier;
 
@@ -36,6 +36,6 @@ public class PurchaseEntity {
     @Column(name = "note", length = 250)
     private String note;
 
-    @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "purchase", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PurchaseItemEntity> items = new ArrayList<>();
 }

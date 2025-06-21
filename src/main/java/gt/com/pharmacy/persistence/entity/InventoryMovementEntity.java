@@ -48,12 +48,12 @@ public class InventoryMovementEntity {
     private String note;
 
     @NotNull(message = "Presentation cannot be null.")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "presentation_id", nullable = false)
     @JsonBackReference("presentation-movement")
     private PresentationEntity presentation;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "supplier_id")
     @JsonBackReference("supplier-movement")
     private SupplierEntity supplier;
