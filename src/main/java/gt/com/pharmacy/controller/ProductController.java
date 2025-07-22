@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@PreAuthorize("denyAll()")
 @RestController
 @RequestMapping("/api/products")
+@PreAuthorize("denyAll()")
 @RequiredArgsConstructor
 public class ProductController {
 
