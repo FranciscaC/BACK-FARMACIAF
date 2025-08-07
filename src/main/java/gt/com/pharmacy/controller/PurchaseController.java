@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/purchases")
 @PreAuthorize("denyAll()")
@@ -21,5 +24,11 @@ public class PurchaseController {
     @PostMapping
     public ResponseEntity<PurchaseDTO> createPurchase(@Valid @RequestBody PurchaseDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(purchaseService.save(dto));
+    }
+
+    @PreAuthorize("hasAuthority(@permissionConstants.read())")
+    @GetMapping("/by-date/{date}")
+    public ResponseEntity<List<PurchaseDTO>> getPurchasesByDate(@PathVariable LocalDate date) {
+        return ResponseEntity.ok(purchaseService.findByPurchaseDate(date));
     }
 }
