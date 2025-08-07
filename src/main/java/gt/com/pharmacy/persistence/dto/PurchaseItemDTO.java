@@ -7,7 +7,7 @@ import lombok.*;
 public class PurchaseItemDTO {
 
     private Long id;
-    private PresentationDTO presentationDTO;
+    private PresentationDTO presentation;
     private Integer quantity;
     private Price unitPrice;
 }
