@@ -4,10 +4,10 @@ import gt.com.pharmacy.persistence.dto.PurchaseDTO;
 import gt.com.pharmacy.persistence.entity.PurchaseEntity;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = { IPurchaseItemMapper.class, ISupplierMapper.class })
 public interface IPurchaseMapper {
 
-    PurchaseDTO toDto(PurchaseEntity purchaseEntity);
+    PurchaseDTO toDto(PurchaseEntity entity);
 
-    PurchaseEntity toEntity(PurchaseDTO purchaseDTO);
+    PurchaseEntity toEntity(PurchaseDTO dto);
 }
