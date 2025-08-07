@@ -11,6 +11,9 @@ import java.util.List;
 @Repository
 public interface IPurchaseRepository extends JpaRepository<PurchaseEntity, Long> {
 
-    @Query("SELECT DISTINCT p FROM PurchaseEntity p LEFT JOIN FETCH p.items WHERE DATE(p.purchaseDate) = :date")
+    @Query("SELECT DISTINCT p FROM PurchaseEntity p " +
+            "LEFT JOIN FETCH p.items i " +
+            "LEFT JOIN FETCH i.presentation " +
+            "WHERE DATE(p.purchaseDate) = :date")
     List<PurchaseEntity> findByPurchaseDate(LocalDate date);
 }
