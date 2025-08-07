@@ -59,7 +59,7 @@ public class PurchaseServiceImplementation extends AbstractCrudDtoServiceImpleme
                 .build();
         List<PurchaseItemEntity> items = dto.getItems().stream()
                 .map(item -> {
-                    PresentationEntity presentation = presentationRepository.findById(item.getPresentationDTO().getId())
+                    PresentationEntity presentation = presentationRepository.findById(item.getPresentation().getId())
                             .orElseThrow(() -> new EntityNotFoundException("Presentation not found"));
                     presentation.setCurrentStock(presentation.getCurrentStock() + item.getQuantity());
                     InventoryMovementEntity movement = InventoryMovementEntity.builder()
