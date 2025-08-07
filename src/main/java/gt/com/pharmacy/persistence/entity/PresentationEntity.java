@@ -44,7 +44,7 @@ public class PresentationEntity {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @OneToMany(mappedBy = "presentation", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "presentation", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JsonManagedReference("presentation-price")
     private List<PriceHistoryEntity> priceHistory = new ArrayList<>();
 
