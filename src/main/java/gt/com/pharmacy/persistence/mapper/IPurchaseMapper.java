@@ -10,5 +10,4 @@ public interface IPurchaseMapper {
     PurchaseDTO toDto(PurchaseEntity purchaseEntity);
 
     PurchaseEntity toEntity(PurchaseDTO purchaseDTO);
-
 }

@@ -11,6 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -81,5 +82,13 @@ public class PurchaseServiceImplementation extends AbstractCrudDtoServiceImpleme
         purchase.setItems(items);
         PurchaseEntity savedPurchase = purchaseRepository.save(purchase);
         return purchaseMapper.toDto(savedPurchase);
+    }
+
+    @Transactional(readOnly = true)
+    public List<PurchaseDTO> findByPurchaseDate(LocalDate date) {
+        List<PurchaseEntity> purchases = purchaseRepository.findByPurchaseDate(date);
+        return purchases.stream()
+                .map(purchaseMapper::toDto)
+                .collect(Collectors.toList());
     }
 }
