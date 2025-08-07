@@ -43,4 +43,11 @@ public class PresentationController {
     public ResponseEntity<List<PresentationDTO>> getAllPresentations() {
         return ResponseEntity.ok(presentationService.findAll());
     }
+
+    @PreAuthorize("hasAnyAuthority(@permissionConstants.delete())")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePresentation(@PathVariable Long id) {
+        presentationService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
