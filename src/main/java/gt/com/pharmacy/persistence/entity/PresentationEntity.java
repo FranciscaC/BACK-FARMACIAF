@@ -3,6 +3,7 @@ package gt.com.pharmacy.persistence.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import gt.com.pharmacy.persistence.model.Price;
+import gt.com.pharmacy.persistence.model.Supplier;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -27,6 +28,9 @@ public class PresentationEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "presentation_seq")
     @SequenceGenerator(name = "presentation_seq", sequenceName = "presentation_sequence", allocationSize = 1)
     private Long id;
+
+    @Embedded
+    private Supplier supplier;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)

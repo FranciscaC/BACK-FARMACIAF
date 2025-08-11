@@ -1,6 +1,7 @@
 package gt.com.pharmacy.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import gt.com.pharmacy.persistence.model.Customer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -23,6 +24,9 @@ public class SaleEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sale_seq")
     @SequenceGenerator(name = "sale_seq", sequenceName = "sale_sequence", allocationSize = 1)
     private Long id;
+
+    @Embedded
+    private Customer customer;
 
     @NotNull(message = "Sale date cannot be null.")
     @Column(name = "sale_date", nullable = false)

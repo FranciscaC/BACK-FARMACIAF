@@ -55,6 +55,7 @@ public class SaleServiceImplementation extends AbstractCrudDtoServiceImplementat
             throw new IllegalArgumentException("Sale must have at least 1 item");
         }
         SaleEntity sale = SaleEntity.builder()
+                .customer(dto.getCustomer())
                 .date(dto.getDate() != null ? dto.getDate() : LocalDateTime.now())
                 .total(calculateTotal(dto.getItems()))
                 .build();
@@ -71,7 +72,7 @@ public class SaleServiceImplementation extends AbstractCrudDtoServiceImplementat
                             .movementDate(LocalDateTime.now().toLocalDate())
                             .quantity(item.getQuantity())
                             .presentation(presentation)
-                            .note("Venta registerd")
+                            .note("Sale registered")
                             .build();
                     entityManager.persist(movement);
 

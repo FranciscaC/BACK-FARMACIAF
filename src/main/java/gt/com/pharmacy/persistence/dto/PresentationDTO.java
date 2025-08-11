@@ -3,6 +3,7 @@ package gt.com.pharmacy.persistence.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
 import gt.com.pharmacy.persistence.model.Price;
+import gt.com.pharmacy.persistence.model.Supplier;
 import gt.com.pharmacy.persistence.view.Views;
 import lombok.*;
 
@@ -16,6 +17,9 @@ public class PresentationDTO {
 
     @JsonView(Views.Public.class)
     private Long id;
+
+    @JsonView(Views.Public.class)
+    private Supplier supplier;
 
     @JsonView(Views.Public.class)
     private ProductBasicDTO product;
