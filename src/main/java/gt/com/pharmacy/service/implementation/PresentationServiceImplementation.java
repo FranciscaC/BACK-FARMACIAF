@@ -5,6 +5,7 @@ import gt.com.pharmacy.persistence.entity.PresentationEntity;
 import gt.com.pharmacy.persistence.entity.PriceHistoryEntity;
 import gt.com.pharmacy.persistence.mapper.IPresentationMapper;
 import gt.com.pharmacy.persistence.model.Price;
+import gt.com.pharmacy.persistence.model.Supplier;
 import gt.com.pharmacy.persistence.repository.IPresentationRepository;
 import gt.com.pharmacy.service.validator.PresentationValidator;
 import jakarta.persistence.EntityNotFoundException;
@@ -45,6 +46,12 @@ public class PresentationServiceImplementation extends AbstractCrudDtoServiceImp
     public PresentationDTO save(PresentationDTO dto) {
         presentationValidator.validate(dto);
         PresentationEntity presentation = iPresentationMapper.toEntity(dto);
+        if(dto.getSupplier() != null) {
+            Supplier supplier = new Supplier();
+            supplier.setLaboratory(dto.getSupplier().getLaboratory());
+            supplier.setPhone(dto.getSupplier().getPhone());
+            presentation.setSupplier(supplier);
+        }
         presentation.setCurrentStock(dto.getCurrentStock());
         if (presentation.getPriceHistory() == null) {
             presentation.setPriceHistory(new ArrayList<>());
