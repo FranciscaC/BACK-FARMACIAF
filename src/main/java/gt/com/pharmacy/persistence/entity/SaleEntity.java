@@ -5,6 +5,7 @@ import gt.com.pharmacy.persistence.model.Customer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -43,4 +44,11 @@ public class SaleEntity {
     @OneToMany(mappedBy = "sale", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonManagedReference
     private List<SaleItemEntity> items = new ArrayList<>();
+
+    @Column(name = "is_available")
+    private boolean isAvailable;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 }

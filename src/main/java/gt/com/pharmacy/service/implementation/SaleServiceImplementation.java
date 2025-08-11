@@ -58,6 +58,7 @@ public class SaleServiceImplementation extends AbstractCrudDtoServiceImplementat
                 .customer(dto.getCustomer())
                 .date(dto.getDate() != null ? dto.getDate() : LocalDateTime.now())
                 .total(calculateTotal(dto.getItems()))
+                .isAvailable(true)
                 .build();
         List<SaleItemEntity> items = dto.getItems().stream()
                 .map(item -> {
