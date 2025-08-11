@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -87,6 +88,13 @@ public class SaleServiceImplementation extends AbstractCrudDtoServiceImplementat
         sale.setItems(items);
         SaleEntity savedSale = saleRepository.save(sale);
         return saleMapper.toDto(savedSale);
+    }
+
+    public List<SaleDTO> findSalesByDate(LocalDate date) {
+        List<SaleEntity> sales = saleRepository.findByDate(date);
+        return sales.stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
     }
 
     private BigDecimal calculateTotal(List<SaleItemDTO> items) {
