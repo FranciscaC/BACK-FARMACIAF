@@ -52,8 +52,8 @@ public class PresentationEntity {
     @JsonManagedReference("presentation-price")
     private List<PriceHistoryEntity> priceHistory = new ArrayList<>();
 
-    @Column(name = "is_available")
-    private boolean isAvailable;
+    @Column(name = "available")
+    private boolean available;
 
     @OneToMany(mappedBy = "presentation", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonManagedReference("presentation-movement")
