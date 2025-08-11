@@ -45,9 +45,6 @@ public class SaleEntity {
     @JsonManagedReference
     private List<SaleItemEntity> items = new ArrayList<>();
 
-    @Column(name = "is_available")
-    private boolean isAvailable;
-
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
