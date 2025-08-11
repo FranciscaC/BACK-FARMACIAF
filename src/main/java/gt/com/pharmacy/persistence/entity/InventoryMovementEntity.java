@@ -17,8 +17,7 @@ import java.time.LocalDate;
 @Table(
         name = "inventory_movements",
         indexes = {
-                @Index(name = "idx_movement_presentation", columnList = "presentation_id"),
-                @Index(name = "idx_movement_supplier", columnList = "supplier_id")
+                @Index(name = "idx_movement_presentation", columnList = "presentation_id")
         }
 )
 public class InventoryMovementEntity {
@@ -52,9 +51,4 @@ public class InventoryMovementEntity {
     @JoinColumn(name = "presentation_id", nullable = false)
     @JsonBackReference("presentation-movement")
     private PresentationEntity presentation;
-
-    @ManyToOne
-    @JoinColumn(name = "supplier_id")
-    @JsonBackReference("supplier-movement")
-    private SupplierEntity supplier;
 }

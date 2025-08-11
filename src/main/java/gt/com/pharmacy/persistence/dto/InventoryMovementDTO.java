@@ -23,6 +23,4 @@ public class InventoryMovementDTO {
     private String note;
 
     private PresentationDTO presentation;
-
-    private SupplierDTO supplier;
 }
