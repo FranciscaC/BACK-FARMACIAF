@@ -12,6 +12,6 @@ import java.util.List;
 @Repository
 public interface ISaleRepository extends JpaRepository<SaleEntity, Long> {
 
-    @Query("SELECT s FROM SaleEntity s WHERE DATE(s.date) = :date")
+    @Query("SELECT s FROM SaleEntity s LEFT JOIN FETCH s.items WHERE DATE(s.date) = :date")
     List<SaleEntity> findByDate(@Param("date") LocalDate date);
 }
