@@ -45,7 +45,7 @@ public class PresentationServiceImplementation extends AbstractCrudDtoServiceImp
     public PresentationDTO save(PresentationDTO dto) {
         presentationValidator.validate(dto);
         PresentationEntity presentation = iPresentationMapper.toEntity(dto);
-        presentation.setCurrentStock(0);
+        presentation.setCurrentStock(dto.getCurrentStock());
         if (presentation.getPriceHistory() == null) {
             presentation.setPriceHistory(new ArrayList<>());
         }
