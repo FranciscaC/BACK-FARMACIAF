@@ -62,6 +62,7 @@ public class PresentationServiceImplementation extends AbstractCrudDtoServiceImp
                 .presentation(presentation)
                 .build();
         presentation.getPriceHistory().add(history);
+        presentation.setAvailable(true);
         PresentationEntity saved = jpaRepository.save(presentation);
         return toDTO(saved);
     }
