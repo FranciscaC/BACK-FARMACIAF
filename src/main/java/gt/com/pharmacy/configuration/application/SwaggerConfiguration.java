@@ -23,7 +23,7 @@ import org.springframework.http.HttpHeaders;
         servers = {
                 @Server(description = "DEVELOPMENT SERVER", url = "http://localhost:8081"),
                 @Server(description = "TESTING SERVER", url = "http://localhost:8082"),
-                @Server(description = "PRODUCTION SERVER", url = "http://localhost:8080")
+                @Server(description = "PRODUCTION SERVER", url = "https://back-farmaciaf-production.up.railway.app")
         },
         security = @SecurityRequirement(name = "Security Token")
 )
