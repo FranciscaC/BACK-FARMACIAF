@@ -27,7 +27,12 @@ public class Price {
     @DecimalMin(value = "0.01", message = "Public price must be greater than 0.")
     @Digits(integer = 10, fraction = 2)
     @Column(name = "public_price", precision = 10, scale = 2)
-
     @JsonView(Views.Public.class)
     private BigDecimal publicPrice;
+
+    @DecimalMin(value = "0.01", message = "Wholesale price must be greater than 0.")
+    @Digits(integer = 10, fraction = 2)
+    @Column(name = "wholesale_price", precision = 10, scale = 2)
+    @JsonView(Views.Public.class)
+    private BigDecimal wholesalePrice;
 }
