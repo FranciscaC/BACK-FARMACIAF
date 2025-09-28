@@ -31,7 +31,7 @@ public class SaleEntity {
 
     @NotNull(message = "Sale date cannot be null.")
     @Column(name = "sale_date", nullable = false)
-    PastOrPresent
+    @PastOrPresent
     private LocalDateTime date;
 
     @NotNull(message = "Total cannot be null.")
