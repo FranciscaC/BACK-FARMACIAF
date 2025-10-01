@@ -97,6 +97,10 @@ public class SaleServiceImplementation extends AbstractCrudDtoServiceImplementat
                 .collect(Collectors.toList());
     }
 
+    public BigDecimal getTotalSalesByDateRange(LocalDate startDate, LocalDate endDate) {
+        return saleRepository.sumTotalByDateRange(startDate, endDate);
+    }
+
     private BigDecimal calculateTotal(List<SaleItemDTO> items) {
         return items.stream()
                 .map(item -> item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))

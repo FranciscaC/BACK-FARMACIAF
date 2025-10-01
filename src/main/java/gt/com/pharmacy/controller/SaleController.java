@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -36,5 +37,15 @@ public class SaleController {
     public ResponseEntity<List<SaleDTO>> getSalesByDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         List<SaleDTO> sales = saleService.findSalesByDate(date);
         return ResponseEntity.ok(sales);
+    }
+
+    @PreAuthorize("hasAnyAuthority(@permissionConstants.read())")
+    @GetMapping("/total-by-date-range")
+    public ResponseEntity<BigDecimal> getTotalSalesByDateRange(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
+    ) {
+        BigDecimal total = saleService.getTotalSalesByDateRange(startDate, endDate);
+        return ResponseEntity.ok(total);
     }
 }
