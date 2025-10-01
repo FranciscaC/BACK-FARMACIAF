@@ -98,7 +98,9 @@ public class SaleServiceImplementation extends AbstractCrudDtoServiceImplementat
     }
 
     public BigDecimal getTotalSalesByDateRange(LocalDate startDate, LocalDate endDate) {
-        return saleRepository.sumTotalByDateRange(startDate, endDate);
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
+        return saleRepository.sumTotalByDateRange(startDateTime, endDateTime);
     }
 
     private BigDecimal calculateTotal(List<SaleItemDTO> items) {

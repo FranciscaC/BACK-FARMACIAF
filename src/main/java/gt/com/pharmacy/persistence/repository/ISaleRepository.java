@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -16,6 +17,6 @@ public interface ISaleRepository extends JpaRepository<SaleEntity, Long> {
     @Query("SELECT s FROM SaleEntity s LEFT JOIN FETCH s.items WHERE DATE(s.date) = :date")
     List<SaleEntity> findByDate(@Param("date") LocalDate date);
 
-    @Query("SELECT COALESCE(SUM(s.total)) FROM SaleEntity s WHERE s.date BETWEEN :startDate AND :endDate")
-    BigDecimal sumTotalByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    @Query("SELECT COALESCE(SUM(s.total), 0) FROM SaleEntity s WHERE s.date BETWEEN :startDate AND :endDate")
+    BigDecimal sumTotalByDateRange(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 }
