@@ -18,5 +18,5 @@ public interface ISaleRepository extends JpaRepository<SaleEntity, Long> {
     List<SaleEntity> findByDate(@Param("date") LocalDate date);
 
     @Query("SELECT COALESCE(SUM(s.total), 0) FROM SaleEntity s WHERE s.date BETWEEN :startDate AND :endDate")
-    BigDecimal sumTotalByDateRange(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+    BigDecimal sumTotalByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }
