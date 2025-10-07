@@ -8,6 +8,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class SaleEntity {
     @NotNull(message = "Sale date cannot be null.")
     @Column(name = "sale_date", nullable = false)
     @PastOrPresent
-    private LocalDateTime date;
+    private LocalDate date;
 
     @NotNull(message = "Total cannot be null.")
     @DecimalMin(value = "0.01", message = "Total must be greater than 0.")

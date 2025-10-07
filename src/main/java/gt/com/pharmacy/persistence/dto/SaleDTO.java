@@ -6,7 +6,7 @@ import gt.com.pharmacy.persistence.view.Views;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -23,7 +23,7 @@ public class SaleDTO {
     private Customer customer;
 
     @JsonView(Views.Public.class)
-    private LocalDateTime date;
+    private LocalDate date;
 
     @JsonView(Views.Public.class)
     private BigDecimal total;
