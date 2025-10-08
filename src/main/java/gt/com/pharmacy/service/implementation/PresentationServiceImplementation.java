@@ -46,7 +46,7 @@ public class PresentationServiceImplementation extends AbstractCrudDtoServiceImp
     public PresentationDTO save(PresentationDTO dto) {
         presentationValidator.validate(dto);
         PresentationEntity presentation = iPresentationMapper.toEntity(dto);
-        if(dto.getSupplier() != null) {
+        if (dto.getSupplier() != null) {
             Supplier supplier = new Supplier();
             supplier.setLaboratory(dto.getSupplier().getLaboratory());
             supplier.setPhone(dto.getSupplier().getPhone());
@@ -87,6 +87,22 @@ public class PresentationServiceImplementation extends AbstractCrudDtoServiceImp
         }
         existing.setDescription(dto.getDescription());
         PresentationEntity updated = jpaRepository.save(existing);
+        return toDTO(updated);
+    }
+
+    @Transactional
+    public PresentationDTO adjustStock(Long presentationId, Integer quantity) {
+        PresentationEntity presentation = jpaRepository.findById(presentationId)
+                .orElseThrow(() -> new EntityNotFoundException("Presentation not found with id: " + presentationId));
+
+        int newStock = presentation.getCurrentStock() + quantity;
+        if (newStock < 0) {
+            throw new IllegalArgumentException("Insufficient stock. Current: " + presentation.getCurrentStock() +
+                    ", Adjustment: " + quantity);
+        }
+
+        presentation.setCurrentStock(newStock);
+        PresentationEntity updated = jpaRepository.save(presentation);
         return toDTO(updated);
     }
 }

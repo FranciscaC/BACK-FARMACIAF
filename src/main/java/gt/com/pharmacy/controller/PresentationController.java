@@ -2,6 +2,7 @@ package gt.com.pharmacy.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import gt.com.pharmacy.persistence.dto.PresentationDTO;
+import gt.com.pharmacy.persistence.dto.StockAdjustmentDTO;
 import gt.com.pharmacy.persistence.view.Views;
 import gt.com.pharmacy.service.implementation.PresentationServiceImplementation;
 import jakarta.validation.Valid;
@@ -26,6 +27,25 @@ public class PresentationController {
     @JsonView(Views.Public.class)
     public ResponseEntity<PresentationDTO> createPresentation(@Valid @RequestBody PresentationDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(presentationService.save(dto));
+    }
+
+    @PreAuthorize("hasAuthority(@permissionConstants.update())")
+    @PatchMapping("/{id}/stock")
+    @JsonView(Views.Public.class)
+    public ResponseEntity<PresentationDTO> adjustStock(
+            @PathVariable Long id,
+            @Valid @RequestBody StockAdjustmentDTO stockAdjustment) {
+
+        if (!id.equals(stockAdjustment.getPresentationId())) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        PresentationDTO updated = presentationService.adjustStock(
+                stockAdjustment.getPresentationId(),
+                stockAdjustment.getQuantity()
+        );
+
+        return ResponseEntity.ok(updated);
     }
 
     @PreAuthorize("hasAuthority(@permissionConstants.read())")
