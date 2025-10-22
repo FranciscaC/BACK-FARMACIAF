@@ -64,6 +64,18 @@ public class PresentationController {
         return ResponseEntity.ok(presentationService.findAll());
     }
 
+    @PreAuthorize("hasAuthority(@permissionConstants.update())")
+    @PutMapping("/{id}")
+    @JsonView(Views.Public.class)
+    public ResponseEntity<PresentationDTO> updatePresentation(@PathVariable Long id, @Valid @RequestBody PresentationDTO dto) {
+        if (dto.getId() != null && !dto.getId().equals(id)) {
+            return ResponseEntity.badRequest().build();
+        }
+        dto.setId(id);
+        PresentationDTO updated = presentationService.update(dto, id);
+        return ResponseEntity.ok(updated);
+    }
+
     @PreAuthorize("hasAnyAuthority(@permissionConstants.delete())")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePresentation(@PathVariable Long id) {

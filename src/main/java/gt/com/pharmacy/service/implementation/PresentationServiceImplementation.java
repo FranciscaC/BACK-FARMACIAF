@@ -71,12 +71,22 @@ public class PresentationServiceImplementation extends AbstractCrudDtoServiceImp
     @Transactional
     public PresentationDTO update(PresentationDTO dto, Long id) {
         presentationValidator.validate(dto);
-        PresentationEntity existing = jpaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Presentation not found"));
+        PresentationEntity existing = jpaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Presentation not found with id: " + id));
+        existing.setDescription(dto.getDescription());
+        existing.setCurrentStock(dto.getCurrentStock());
+        if (dto.getSupplier() != null) {
+            if (existing.getSupplier() == null) {
+                existing.setSupplier(new Supplier());
+            }
+            existing.getSupplier().setLaboratory(dto.getSupplier().getLaboratory());
+            existing.getSupplier().setPhone(dto.getSupplier().getPhone());
+        }
         Price newPrice = dto.getCurrentPrice();
         if (newPrice != null && !newPrice.equals(existing.getCurrentPrice())) {
             existing.getPriceHistory().stream()
                     .filter(priceHistory -> priceHistory.getEffectiveTo() == null)
-                    .forEach(priceHistory -> priceHistory.setEffectiveFrom(LocalDateTime.now()));
+                    .forEach(priceHistory -> priceHistory.setEffectiveTo(LocalDateTime.now()));
             PriceHistoryEntity newHistory = PriceHistoryEntity.builder()
                     .price(newPrice)
                     .effectiveFrom(LocalDateTime.now())
@@ -85,7 +95,9 @@ public class PresentationServiceImplementation extends AbstractCrudDtoServiceImp
             existing.getPriceHistory().add(newHistory);
             existing.setCurrentPrice(newPrice);
         }
-        existing.setDescription(dto.getDescription());
+        if (dto.getCurrentStock() != null) {
+            existing.setAvailable(dto.getCurrentStock() > 0);
+        }
         PresentationEntity updated = jpaRepository.save(existing);
         return toDTO(updated);
     }
