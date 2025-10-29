@@ -48,4 +48,11 @@ public class SaleController {
         BigDecimal total = saleService.getTotalSalesByDateRange(startDate, endDate);
         return ResponseEntity.ok(total);
     }
+
+    @PreAuthorize("hasAuthority(@permissionConstants.delete())")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSale(@PathVariable Long id) {
+        saleService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

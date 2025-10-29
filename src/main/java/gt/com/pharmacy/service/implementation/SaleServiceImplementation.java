@@ -90,6 +90,42 @@ public class SaleServiceImplementation extends AbstractCrudDtoServiceImplementat
         return saleMapper.toDto(savedSale);
     }
 
+    @Transactional
+    public void delete(Long id) {
+        SaleEntity sale = saleRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Sale not found with id: " + id));
+
+        @SuppressWarnings("unchecked")
+        List<Object[]> items = entityManager.createNativeQuery("SELECT presentation_id, quantity FROM sale_items WHERE sale_id = ?1")
+                .setParameter(1, id)
+                .getResultList();
+
+        for (Object[] item : items) {
+            Long presentationId = ((Number) item[0]).longValue();
+            Integer quantity = ((Number) item[1]).intValue();
+
+            PresentationEntity presentation = presentationRepository.findById(presentationId)
+                    .orElseThrow(() -> new EntityNotFoundException("Presentation not found with id: " + presentationId));
+
+            presentation.setCurrentStock(presentation.getCurrentStock() + quantity);
+
+            InventoryMovementEntity movement = InventoryMovementEntity.builder()
+                    .type(MovementTypeEnum.IN)
+                    .movementDate(LocalDateTime.now().toLocalDate())
+                    .quantity(quantity)
+                    .presentation(presentation)
+                    .note("Sale cancellation - ID: " + id)
+                    .build();
+            entityManager.persist(movement);
+        }
+
+        entityManager.createNativeQuery("DELETE FROM sale_items WHERE sale_id = ?1")
+                .setParameter(1, id)
+                .executeUpdate();
+
+        saleRepository.delete(sale);
+    }
+
     public List<SaleDTO> findSalesByDate(LocalDate date) {
         List<SaleEntity> sales = saleRepository.findByDate(date);
         return sales.stream()
